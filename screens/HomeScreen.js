@@ -12,10 +12,32 @@ import { WebBrowser } from 'expo';
 
 import { MonoText } from '../components/StyledText';
 
-export default class HomeScreen extends React.Component {
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
+
+class HomeScreen extends React.Component {
   static navigationOptions = {
     header: null,
   };
+
+  get courses() {
+    const { data } = this.props;
+    if (data && data.courses) {
+      return data.courses;
+    } else {
+      return [];
+    }
+  }
+
+  renderCourse(course) {
+    return (
+      <TouchableOpacity key={course.id}>
+        <Text style={styles.getStartedText}>
+          {course.name}
+        </Text>
+      </TouchableOpacity>
+    )
+  }
 
   render() {
     return (
@@ -41,6 +63,8 @@ export default class HomeScreen extends React.Component {
               <MonoText style={styles.codeHighlightText}>screens/HomeScreen.js</MonoText>
             </View>
 
+            {this.courses.map(course => this.renderCourse(course))}
+
             <Text style={styles.getStartedText}>
               Change this text and your app will automatically reload.
             </Text>
@@ -52,6 +76,8 @@ export default class HomeScreen extends React.Component {
             </TouchableOpacity>
           </View>
         </ScrollView>
+
+
 
         <View style={styles.tabBarInfoContainer}>
           <Text style={styles.tabBarInfoText}>This is a tab bar. You can edit it in:</Text>
@@ -186,3 +212,9 @@ const styles = StyleSheet.create({
     color: '#2e78b7',
   },
 });
+
+const query = gql`
+  { courses { id name } }
+`;
+
+export default graphql(query)(HomeScreen);

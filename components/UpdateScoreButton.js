@@ -14,6 +14,10 @@ const UPDATE_SCORE_MUTATION = gql`
         holeNumber
         par
       }
+      round {
+        id
+        totalScore
+      }
     }
   }
 `

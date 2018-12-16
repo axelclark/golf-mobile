@@ -11,32 +11,38 @@ import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 
 import Score from '../components/Score'
+import ScoresHeader from '../components/ScoresHeader'
 
 class ShowRoundScreen extends React.Component {
   static navigationOptions = {
     title: 'Round',
   };
 
+  sortByHole = scores => scores.sort((a, b) => {
+    return parseInt(a.hole.holeNumber) - parseInt(b.hole.holeNumber)
+  })
+
   render() {
     const id = this.props.navigation.getParam('id', 'Error')
     return (
       <SafeAreaView style={styles.container}>
-        <ScrollView>
-          <Query query={ROUND_QUERY} variables={{ id }}>
-            {({ loading, error, data }) => {
-              if (loading) return <Text>Fetching</Text>
-                if (error) return <Text>Error</Text>
+        <Query query={ROUND_QUERY} variables={{ id }}>
+          {({ loading, error, data }) => {
+            if (loading) return <Text>Fetching</Text>
+              if (error) return <Text>Error</Text>
 
-                const scoresToRender = data.round.scores
+              const scoresToRender = this.sortByHole(data.round.scores)
 
-              return (
-                <View>
+            return (
+              <View>
+                <ScoresHeader/>
+                <ScrollView>
                   {scoresToRender.map(score => <Score key={score.id} score={score} />)}
-                </View>
-              )
-            }}
-          </Query>
-        </ScrollView>
+                </ScrollView>
+              </View>
+            )
+          }}
+        </Query>
       </SafeAreaView>
     );
   }

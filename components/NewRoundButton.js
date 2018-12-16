@@ -47,7 +47,6 @@ const NewRoundButton = ({ course, navigation }) => {
         onCompleted={() => navigation.navigate('Rounds')}
         update={(store, { data: { round } }) => {
           const data = store.readQuery({ query: ROUNDS_QUERY })
-          console.log(round)
           data.rounds.push(round)
           store.writeQuery({
             query: ROUNDS_QUERY,

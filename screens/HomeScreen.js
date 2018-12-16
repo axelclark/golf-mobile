@@ -7,10 +7,12 @@ import {
   View,
 } from 'react-native';
 
-import { graphql } from 'react-apollo';
+import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
 
 import Course from '../components/Course'
+
+import { ROUNDS_QUERY } from './RoundsScreen'
 
 class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -72,4 +74,7 @@ const query = gql`
   { courses { id name numHoles} }
 `;
 
-export default graphql(query)(HomeScreen);
+export default compose(
+  graphql(ROUNDS_QUERY),
+  graphql(query),
+)(HomeScreen);

@@ -26,7 +26,7 @@ const NewRoundButton = ({ course, navigation }) => {
       <Mutation
         mutation={CREATE_ROUND_MUTATION}
         variables={newRound}
-        onCompleted={() => navigation.navigate('Links')}
+        onCompleted={() => navigation.navigate('Rounds')}
       >
         {createRoundMutation => (
           <Button

@@ -3,7 +3,6 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  TouchableOpacity,
   SafeAreaView,
   View,
 } from 'react-native';
@@ -39,7 +38,7 @@ class HomeScreen extends React.Component {
   render() {
     return (
       <SafeAreaView style={styles.container}>
-        <ScrollView style={styles.container}>
+        <ScrollView>
           <View style={styles.header}>
             <Text style={styles.headerText}>
               Courses
@@ -56,20 +55,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f5f5f5',
-  },
-  courseContainer: {
-    borderTopWidth: 1,
-    borderRightWidth: 1,
-    borderLeftWidth: 1,
-    borderColor: '#ededed',
-    backgroundColor: '#fff',
-    marginLeft: 5,
-    marginRight: 5,
-    marginBottom: 2,
-  },
-  courseText: {
-    fontSize: 16,
-    margin: 15,
   },
   header: {
     marginTop: 50,

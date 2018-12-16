@@ -49,17 +49,20 @@ const styles = StyleSheet.create({
   },
 });
 
-const ROUND_QUERY = gql`
+export const ROUND_QUERY = gql`
   query ($id: ID!) {
     round(id: $id) {
+      id
+      startedOn
       course {
+        id
         name
       },
-      startedOn
       scores {
         id
         numStrokes
         hole {
+          id
           holeNumber
           par
         }

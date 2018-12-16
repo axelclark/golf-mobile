@@ -47,17 +47,19 @@ const styles = StyleSheet.create({
   },
 });
 
-const query = gql`
+export const ROUNDS_QUERY = gql`
   {
     rounds {
       id
       startedOn
       totalScore
+      courseId
       course {
+        id
         name
       }
     }
   }
 `;
 
-export default graphql(query)(RoundsScreen);
+export default graphql(ROUNDS_QUERY)(RoundsScreen);

@@ -6,10 +6,28 @@ import { withNavigation } from 'react-navigation'
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 
+import { ROUNDS_QUERY } from '../screens/RoundsScreen'
+
 const CREATE_ROUND_MUTATION = gql`
   mutation ($round: RoundInput!) {
     round: createRound(input: $round) {
+      id
       courseId
+      startedOn
+      totalScore
+      course {
+        id
+        name
+      }
+      scores {
+        id
+        numStrokes
+        hole {
+          id
+          holeNumber
+          par
+        }
+      }
     }
   }
 `
@@ -27,6 +45,15 @@ const NewRoundButton = ({ course, navigation }) => {
         mutation={CREATE_ROUND_MUTATION}
         variables={newRound}
         onCompleted={() => navigation.navigate('Rounds')}
+        update={(store, { data: { round } }) => {
+          const data = store.readQuery({ query: ROUNDS_QUERY })
+          console.log(round)
+          data.rounds.push(round)
+          store.writeQuery({
+            query: ROUNDS_QUERY,
+            data
+          })
+        }}
       >
         {createRoundMutation => (
           <Button

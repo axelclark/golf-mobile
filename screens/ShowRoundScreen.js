@@ -10,8 +10,9 @@ import {
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 
-import Score from '../components/Score'
+import RoundInfo from '../components/RoundInfo'
 import ScoresHeader from '../components/ScoresHeader'
+import Score from '../components/Score'
 
 class ShowRoundScreen extends React.Component {
   static navigationOptions = {
@@ -35,6 +36,7 @@ class ShowRoundScreen extends React.Component {
 
             return (
               <View>
+                <RoundInfo round={data.round}/>
                 <ScoresHeader/>
                 <ScrollView>
                   {scoresToRender.map(score => <Score key={score.id} score={score} />)}
@@ -60,6 +62,7 @@ export const ROUND_QUERY = gql`
     round(id: $id) {
       id
       startedOn
+      totalScore
       course {
         id
         name

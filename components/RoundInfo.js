@@ -6,7 +6,6 @@ import {
 } from 'react-native'
 
 const RoundInfo = ({ round }) => {
-  console.log(round)
   return (
     <View style={styles.roundContainer}>
       <View style={styles.textContainer}>

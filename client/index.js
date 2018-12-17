@@ -6,10 +6,18 @@ import { hasSubscription } from "@jumpn/utils-graphql";
 
 import absintheSocketLink from "./absinthe-socket-link";
 
+const serverURL = () => {
+  if (__DEV__) {
+    return "http://localhost:4000/api/graphql"
+  } else {
+    return "https://golf.gigalixirapp.com/api/graphql"
+  }
+}
+
 const link = new ApolloLink.split(
   operation => hasSubscription(operation.query),
   absintheSocketLink,
-  createHttpLink({uri: "http://localhost:4000/api/graphql"})
+  createHttpLink({uri: serverURL})
 );
 
 export default new ApolloClient({

@@ -11,6 +11,7 @@ import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
 
 import Course from '../components/Course'
+import Header from '../components/Header'
 
 import { ROUNDS_QUERY } from './RoundsScreen'
 
@@ -41,11 +42,7 @@ class HomeScreen extends React.Component {
     return (
       <SafeAreaView style={styles.container}>
         <ScrollView>
-          <View style={styles.header}>
-            <Text style={styles.headerText}>
-              Courses
-            </Text>
-          </View>
+          <Header title={'Courses'}/>
           {this.courses.map(course => this.renderCourse(course))}
         </ScrollView>
       </SafeAreaView>
@@ -57,16 +54,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f5f5f5',
-  },
-  header: {
-    marginTop: 50,
-    marginBottom: 50,
-  },
-  headerText: {
-    textAlign: 'center',
-    fontSize: 72,
-    color: 'rgba(175, 47, 47, 0.25)',
-    fontWeight: '100'
   },
 });
 

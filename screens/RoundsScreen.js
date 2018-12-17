@@ -5,10 +5,11 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
 import RoundItem from '../components/RoundItem'
+import Header from '../components/Header'
 
 class RoundsScreen extends React.Component {
   static navigationOptions = {
-    title: 'Rounds',
+    header: null,
   };
 
   get rounds() {
@@ -33,6 +34,7 @@ class RoundsScreen extends React.Component {
     return (
       <SafeAreaView style={styles.container}>
         <ScrollView>
+          <Header title={'Rounds'}/>
           {this.rounds.map(round => this.renderRound(round))}
         </ScrollView>
       </SafeAreaView>

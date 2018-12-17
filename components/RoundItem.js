@@ -7,6 +7,8 @@ import {
 } from 'react-native'
 import { withNavigation } from 'react-navigation'
 
+import formatScore from '../utils/formatScore'
+
 const RoundItem = ({ round, navigation }) => {
   return (
     <TouchableOpacity
@@ -20,7 +22,7 @@ const RoundItem = ({ round, navigation }) => {
         </View>
         <View style={styles.scoreContainer}>
           <Text style={styles.scoreText}>
-            {round.totalScore}
+            {formatScore(round.totalScore)}
           </Text>
         </View>
       </View>

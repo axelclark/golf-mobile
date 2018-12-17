@@ -5,6 +5,8 @@ import {
   View,
 } from 'react-native'
 
+import formatScore from '../utils/formatScore'
+
 const RoundInfo = ({ round }) => {
   return (
     <View style={styles.roundContainer}>
@@ -13,7 +15,7 @@ const RoundInfo = ({ round }) => {
         </Text>
       <View style={styles.textContainer}>
         <Text style={styles.text}>
-          Score: {round.totalScore}
+          Score: {formatScore(round.totalScore)}
         </Text>
         <Text style={styles.text}>
           {round.startedOn}

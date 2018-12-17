@@ -6,6 +6,7 @@ import {
 } from 'react-native'
 
 import { styles } from './Score'
+import Sizes from '../constants/Sizes'
 
 const ScoresHeader = () => {
   return (
@@ -36,7 +37,7 @@ const ScoresHeader = () => {
 
 const headerStyles = StyleSheet.create({
   headerText: {
-    fontSize: 18,
+    fontSize: Sizes.medium,
     minHeight: 50,
     flex: 1,
   },

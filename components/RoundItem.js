@@ -8,6 +8,7 @@ import {
 import { withNavigation } from 'react-navigation'
 
 import formatScore from '../utils/formatScore'
+import Sizes from '../constants/Sizes'
 
 const RoundItem = ({ round, navigation }) => {
   return (
@@ -33,7 +34,7 @@ const RoundItem = ({ round, navigation }) => {
 const styles = StyleSheet.create({
   infoContainer: {
     flex: 8,
-    marginLeft: 5,
+    marginLeft: Sizes.verySmall,
   },
   roundContainer: {
     borderTopWidth: 1,
@@ -41,27 +42,27 @@ const styles = StyleSheet.create({
     borderLeftWidth: 1,
     borderColor: '#ededed',
     backgroundColor: '#fff',
-    marginLeft: 5,
-    marginRight: 5,
+    marginLeft: Sizes.verySmall,
+    marginRight: Sizes.verySmall,
     marginBottom: 2,
-    paddingTop: 18,
-    paddingBottom: 18,
+    paddingTop: Sizes.medium,
+    paddingBottom: Sizes.medium,
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
   roundText: {
-    fontSize: 16,
+    fontSize: Sizes.medium,
     maxWidth: 300,
     flex: 1,
   },
   scoreContainer: {
     flex: 1,
-    marginRight: 5,
+    marginRight: Sizes.verySmall,
   },
   scoreText: {
-    fontSize: 16,
+    fontSize: Sizes.medium,
     textAlign: 'center'
 
   },

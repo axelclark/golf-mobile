@@ -1,6 +1,8 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
+
 import NewRoundButton from './NewRoundButton'
+import Sizes from '../constants/Sizes'
 
 const Course = ({ course }) => {
   return (
@@ -22,8 +24,8 @@ const styles = StyleSheet.create({
     borderLeftWidth: 1,
     borderColor: '#ededed',
     backgroundColor: '#fff',
-    marginLeft: 5,
-    marginRight: 5,
+    marginLeft: Sizes.verySmall,
+    marginRight: Sizes.verySmall,
     marginBottom: 2,
     flex: 1,
     flexDirection: 'row',
@@ -31,11 +33,11 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   courseText: {
-    fontSize: 16,
+    fontSize: Sizes.medium,
   },
   textContainer: {
     flex: 1,
-    marginLeft: 5,
+    marginLeft: Sizes.verySmall,
   }
 })
 

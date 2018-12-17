@@ -1,0 +1,15 @@
+export default {
+  extraSmall: 4,
+  verySmall: 8,
+  small: 12,
+  medium: 16,
+  mediumLarge: 24,
+  large: 32,
+  extraLarge: 48,
+  huge: 64,
+  extraHuge: 96,
+  smallLayout: 128,
+  mediumLayout: 192,
+  largeLayout: 256,
+  extraLargeLayout: 384,
+}

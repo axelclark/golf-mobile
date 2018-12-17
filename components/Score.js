@@ -5,7 +5,9 @@ import {
   StyleSheet,
   View,
 } from 'react-native'
+
 import UpdateScoreButton from './UpdateScoreButton'
+import Sizes from '../constants/Sizes'
 
 const Score = ({ score }) => {
   return (
@@ -49,12 +51,12 @@ export const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: '#ededed',
     flex: 1,
-    paddingTop: 10,
-    paddingBottom: 10,
+    paddingTop: Sizes.small,
+    paddingBottom: Sizes.small,
   },
   rowText: {
     flex: 1,
-    fontSize: 24,
+    fontSize: Sizes.mediumLarge,
     textAlign: 'center'
   },
 })

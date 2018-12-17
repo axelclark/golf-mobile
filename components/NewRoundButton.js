@@ -7,6 +7,7 @@ import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 
 import { ROUNDS_QUERY } from '../screens/RoundsScreen'
+import Sizes from '../constants/Sizes'
 
 const CREATE_ROUND_MUTATION = gql`
   mutation ($round: RoundInput!) {
@@ -69,7 +70,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     maxWidth: 100,
     maxHeight: 50,
-    margin: 5,
+    margin: Sizes.verySmall,
     flex: 1
   }
 })

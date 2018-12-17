@@ -6,11 +6,12 @@ import {
 } from 'react-native'
 
 import formatScore from '../utils/formatScore'
+import Sizes from '../constants/Sizes'
 
 const RoundInfo = ({ round }) => {
   return (
     <View style={styles.roundContainer}>
-        <Text style={[styles.text, styles.nameText]}>
+        <Text style={styles.nameText}>
           {round.course.name}
         </Text>
       <View style={styles.textContainer}>
@@ -30,10 +31,10 @@ const RoundInfo = ({ round }) => {
 
 const styles = StyleSheet.create({
   nameText: {
-    fontSize: 36,
+    fontSize: Sizes.large,
     textAlign: 'center',
     marginLeft: 0,
-    marginTop: 8,
+    marginTop: Sizes.verySmall,
     flex: 2,
   },
   roundContainer: {
@@ -44,7 +45,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   text: {
-    fontSize: 18,
+    fontSize: Sizes.medium,
     flex: 1,
     textAlign: 'center',
   },

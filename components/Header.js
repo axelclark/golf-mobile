@@ -5,6 +5,7 @@ import {
   StyleSheet,
 } from 'react-native'
 
+import Sizes from '../constants/Sizes'
 
 const Header = ({ title }) => {
   return (
@@ -18,12 +19,12 @@ const Header = ({ title }) => {
 
 const styles = StyleSheet.create({
   header: {
-    marginTop: 50,
-    marginBottom: 50,
+    marginTop: Sizes.extraLarge,
+    marginBottom: Sizes.extraLarge,
   },
   headerText: {
     textAlign: 'center',
-    fontSize: 72,
+    fontSize: Sizes.extraHuge,
     color: 'rgba(175, 47, 47, 0.25)',
     fontWeight: '100'
   },

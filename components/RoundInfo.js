@@ -18,6 +18,9 @@ const RoundInfo = ({ round }) => {
           Score: {formatScore(round.totalScore)}
         </Text>
         <Text style={styles.text}>
+          To Play: {round.holesToPlay}
+        </Text>
+        <Text style={styles.text}>
           {round.startedOn}
         </Text>
       </View>

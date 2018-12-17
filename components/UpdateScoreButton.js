@@ -18,6 +18,7 @@ const UPDATE_SCORE_MUTATION = gql`
       round {
         id
         totalScore
+        holesToPlay
       }
     }
   }

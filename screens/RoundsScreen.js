@@ -55,6 +55,7 @@ export const ROUNDS_QUERY = gql`
       id
       startedOn
       totalScore
+      holesToPlay
       courseId
       course {
         id

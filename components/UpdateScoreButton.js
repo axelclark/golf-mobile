@@ -1,5 +1,6 @@
 import React from 'react'
-import { View, Button } from 'react-native'
+import { View, TouchableOpacity, Text, StyleSheet } from 'react-native'
+import { Icon } from 'expo'
 
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
@@ -22,8 +23,8 @@ const UPDATE_SCORE_MUTATION = gql`
   }
 `
 
-const UpdateScoreButton = ({ score, change, title }) => {
-  const scoreParams = {
+const UpdateScoreButton = ({ score, change, iconName }) => {
+  let scoreParams = {
     id: score.id,
     score: {
       numStrokes: score.numStrokes + change
@@ -37,14 +38,37 @@ const UpdateScoreButton = ({ score, change, title }) => {
         variables={scoreParams}
       >
         {updateScoreMutation => (
-          <Button
-            onPress={() => updateScoreMutation(scoreParams)}
-            title={title}
-          />
+          <TouchableOpacity
+            style={styles.container}
+            onPress={() => updateScoreMutation()}
+            onLongPress={() => {
+              scoreParams.score.numStrokes = 0
+              updateScoreMutation()
+            }}
+            delayLongPress={1000}
+          >
+            <Icon.Ionicons
+              name={iconName}
+              size={26}
+              style={styles.icons}
+            />
+          </TouchableOpacity>
         )}
       </Mutation>
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    justifyContent: 'center',
+    flex: 1,
+    flexDirection: 'row',
+  },
+  icon: {
+    flex: 1,
+  }
+
+})
 
 export default UpdateScoreButton

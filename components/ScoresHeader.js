@@ -22,13 +22,7 @@ const ScoresHeader = () => {
       </View>
       <View style={styles.rowItem}>
         <Text style={[styles.rowText, headerStyles.headerText]}>
-          Remove
-        </Text>
-
-      </View>
-      <View style={styles.rowItem}>
-        <Text style={[styles.rowText, headerStyles.headerText]}>
-          Add
+          Update
         </Text>
       </View>
       <View style={styles.rowItem}>

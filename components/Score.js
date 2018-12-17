@@ -22,14 +22,7 @@ const Score = ({ score }) => {
       </View>
       <View style={styles.rowItem}>
         <UpdateScoreButton
-          title='-'
-          score={score}
-          change={-1}
-        />
-      </View>
-      <View style={styles.rowItem}>
-        <UpdateScoreButton
-          title='+'
+          iconName='ios-add-circle-outline'
           score={score}
           change={1}
         />

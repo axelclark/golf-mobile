@@ -8,19 +8,15 @@ import {
 const RoundInfo = ({ round }) => {
   return (
     <View style={styles.roundContainer}>
-      <View style={styles.textContainer}>
-        <Text style={styles.nameText}>
+        <Text style={[styles.text, styles.nameText]}>
           {round.course.name}
         </Text>
-      </View>
       <View style={styles.textContainer}>
-        <Text>
-          {round.startedOn}
-        </Text>
-      </View>
-      <View style={styles.textContainer}>
-        <Text>
+        <Text style={styles.text}>
           Score: {round.totalScore}
+        </Text>
+        <Text style={styles.text}>
+          {round.startedOn}
         </Text>
       </View>
     </View>
@@ -29,14 +25,28 @@ const RoundInfo = ({ round }) => {
 
 const styles = StyleSheet.create({
   nameText: {
-    fontSize: 18,
+    fontSize: 36,
+    textAlign: 'center',
+    marginLeft: 0,
+    marginTop: 8,
+    flex: 2,
   },
   roundContainer: {
-    minHeight: 100,
+    minHeight: 90,
+    borderBottomWidth: 1,
+    borderColor: '#ededed',
     flex: 1,
+    flexDirection: 'column',
+  },
+  text: {
+    fontSize: 18,
+    flex: 1,
+    textAlign: 'center',
   },
   textContainer: {
-    margin: 5,
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   }
 })
 

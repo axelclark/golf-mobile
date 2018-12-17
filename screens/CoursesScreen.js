@@ -15,7 +15,7 @@ import Header from '../components/Header'
 
 import { ROUNDS_QUERY } from './RoundsScreen'
 
-class HomeScreen extends React.Component {
+class CoursesScreen extends React.Component {
   static navigationOptions = {
     header: null,
   };
@@ -64,4 +64,4 @@ const query = gql`
 export default compose(
   graphql(ROUNDS_QUERY),
   graphql(query),
-)(HomeScreen);
+)(CoursesScreen);

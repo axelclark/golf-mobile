@@ -9,6 +9,7 @@ import { withNavigation } from 'react-navigation'
 
 import formatScore from '../utils/formatScore'
 import Sizes from '../constants/Sizes'
+import Colors from '../constants/Colors'
 
 const RoundItem = ({ round, navigation }) => {
   return (
@@ -56,6 +57,7 @@ const styles = StyleSheet.create({
     fontSize: Sizes.medium,
     maxWidth: 300,
     flex: 1,
+    color: Colors.defaultText,
   },
   scoreContainer: {
     flex: 1,
@@ -63,8 +65,8 @@ const styles = StyleSheet.create({
   },
   scoreText: {
     fontSize: Sizes.medium,
-    textAlign: 'center'
-
+    textAlign: 'center',
+    color: Colors.defaultText,
   },
 })
 

@@ -7,6 +7,7 @@ import {
 
 import formatScore from '../utils/formatScore'
 import Sizes from '../constants/Sizes'
+import Colors from '../constants/Colors'
 
 const RoundInfo = ({ round }) => {
   return (
@@ -36,11 +37,12 @@ const styles = StyleSheet.create({
     marginLeft: 0,
     marginTop: Sizes.verySmall,
     flex: 2,
+    color: Colors.mainTitle,
   },
   roundContainer: {
     minHeight: 90,
     borderBottomWidth: 1,
-    borderColor: '#ededed',
+    borderColor: Colors.defaultTableBorder,
     flex: 1,
     flexDirection: 'column',
   },
@@ -48,6 +50,7 @@ const styles = StyleSheet.create({
     fontSize: Sizes.medium,
     flex: 1,
     textAlign: 'center',
+    color: Colors.defaultText
   },
   textContainer: {
     flex: 1,

@@ -7,6 +7,7 @@ import {
 
 import { styles } from './Score'
 import Sizes from '../constants/Sizes'
+import Colors from '../constants/Colors'
 
 const ScoresHeader = () => {
   return (
@@ -38,6 +39,7 @@ const ScoresHeader = () => {
 const headerStyles = StyleSheet.create({
   headerText: {
     fontSize: Sizes.medium,
+    color: Colors.defaultText,
     minHeight: 50,
     flex: 1,
   },

@@ -3,6 +3,7 @@ import { View, Text, StyleSheet } from 'react-native'
 
 import NewRoundButton from './NewRoundButton'
 import Sizes from '../constants/Sizes'
+import Colors from '../constants/Colors'
 
 const Course = ({ course }) => {
   return (
@@ -22,8 +23,8 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderRightWidth: 1,
     borderLeftWidth: 1,
-    borderColor: '#ededed',
-    backgroundColor: '#fff',
+    borderColor: Colors.defaultTableBorder,
+    backgroundColor: Colors.defaultTableBackgroundColor,
     marginLeft: Sizes.verySmall,
     marginRight: Sizes.verySmall,
     marginBottom: 2,
@@ -34,6 +35,7 @@ const styles = StyleSheet.create({
   },
   courseText: {
     fontSize: Sizes.medium,
+    color: Colors.defaultText,
   },
   textContainer: {
     flex: 1,

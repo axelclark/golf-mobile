@@ -6,6 +6,7 @@ import {
 } from 'react-native'
 
 import Sizes from '../constants/Sizes'
+import Colors from '../constants/Colors'
 
 const Header = ({ title }) => {
   return (
@@ -25,7 +26,7 @@ const styles = StyleSheet.create({
   headerText: {
     textAlign: 'center',
     fontSize: Sizes.extraHuge,
-    color: 'rgba(175, 47, 47, 0.25)',
+    color: Colors.mainTitle,
     fontWeight: '100'
   },
 })

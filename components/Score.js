@@ -8,6 +8,7 @@ import {
 
 import UpdateScoreButton from './UpdateScoreButton'
 import Sizes from '../constants/Sizes'
+import Colors from '../constants/Colors'
 
 const Score = ({ score }) => {
   return (
@@ -49,7 +50,8 @@ export const styles = StyleSheet.create({
   },
   rowItem: {
     borderBottomWidth: 1,
-    borderColor: '#ededed',
+    borderColor: Colors.defaultTableBorder,
+    backgroundColor: Colors.defaultTableBackgroundColor,
     flex: 1,
     paddingTop: Sizes.small,
     paddingBottom: Sizes.small,
@@ -57,7 +59,8 @@ export const styles = StyleSheet.create({
   rowText: {
     flex: 1,
     fontSize: Sizes.mediumLarge,
-    textAlign: 'center'
+    textAlign: 'center',
+    color: Colors.defaultText,
   },
 })
 

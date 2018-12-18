@@ -5,6 +5,8 @@ import { Icon } from 'expo'
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 
+import Colors from '../constants/Colors';
+
 const UPDATE_SCORE_MUTATION = gql`
   mutation ($id: ID!, $score: ScoreInput!) {
     score: updateScore(id: $id, input: $score) {
@@ -52,6 +54,7 @@ const UpdateScoreButton = ({ score, change, iconName }) => {
               name={iconName}
               size={26}
               style={styles.icons}
+              color={Colors.defaultText}
             />
           </TouchableOpacity>
         )}

@@ -40,12 +40,12 @@ const headerStyles = StyleSheet.create({
   headerText: {
     fontSize: Sizes.medium,
     color: Colors.defaultText,
-    minHeight: 50,
     flex: 1,
   },
   headerRow: {
-    minHeight: 50,
     flex: 1,
+    minHeight: Sizes.extraLarge,
+    maxHeight: Sizes.extraLarge,
   }
 })
 

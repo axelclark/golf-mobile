@@ -35,8 +35,8 @@ class ShowRoundScreen extends React.Component {
               const scoresToRender = this.sortByHole(data.round.scores)
 
             return (
-              <View>
-                <RoundInfo round={data.round}/>
+              <View style={{ flex: 1 }}>
+                <RoundInfo round={data.round} />
                 <ScoresHeader/>
                 <ScrollView>
                   {scoresToRender.map(score => <Score key={score.id} score={score} />)}

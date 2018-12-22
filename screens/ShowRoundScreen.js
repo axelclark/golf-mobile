@@ -13,6 +13,7 @@ import gql from 'graphql-tag';
 import RoundInfo from '../components/RoundInfo'
 import ScoresHeader from '../components/ScoresHeader'
 import Score from '../components/Score'
+import Colors from '../constants/Colors'
 
 class ShowRoundScreen extends React.Component {
   static navigationOptions = {
@@ -53,7 +54,7 @@ class ShowRoundScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: Colors.backgroundColor,
   },
 });
 

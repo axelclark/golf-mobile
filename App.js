@@ -4,7 +4,6 @@ import { AppLoading, Asset, Font, Icon } from 'expo';
 import AppNavigator from './navigation/AppNavigator';
 import { ApolloProvider } from 'react-apollo';
 import client from './client';
-import Colors from './constants/Colors'
 
 export default class App extends React.Component {
   state = {
@@ -62,6 +61,5 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.backgroundColor,
   },
 });

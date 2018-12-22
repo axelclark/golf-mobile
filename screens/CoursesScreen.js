@@ -12,6 +12,8 @@ import gql from 'graphql-tag';
 
 import Course from '../components/Course'
 import Header from '../components/Header'
+import Colors from '../constants/Colors'
+
 
 import { ROUNDS_QUERY } from './RoundsScreen'
 
@@ -53,7 +55,7 @@ class CoursesScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: Colors.backgroundColor,
   },
 });
 

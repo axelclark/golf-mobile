@@ -10,53 +10,84 @@ import Sizes from '../constants/Sizes'
 import Colors from '../constants/Colors'
 
 const RoundInfo = ({ round }) => {
+  const formatToPlay = (toPlay) => {
+    if (toPlay === 0) {
+      return 'Round Complete'
+    } else if (toPlay === 1) {
+      return `${toPlay} hole to play`
+    } else {
+      return `${toPlay} holes to play`
+    }
+  }
   return (
     <View style={styles.roundContainer}>
-        <Text style={styles.nameText}>
-          {round.course.name}
+      <View style={styles.scoreContainer}>
+        <Text style={styles.scoreText}>
+          {formatScore(round.totalScore)}
         </Text>
-      <View style={styles.textContainer}>
-        <Text style={styles.text}>
-          Score: {formatScore(round.totalScore)}
-        </Text>
-        <Text style={styles.text}>
-          To Play: {round.holesToPlay}
-        </Text>
-        <Text style={styles.text}>
-          {round.startedOn}
-        </Text>
+      </View>
+      <View style={styles.detailsContainer}>
+        <View style={styles.textContainer}>
+          <Text style={styles.nameText}>
+            {round.course.name}
+          </Text>
+        </View>
+        <View style={styles.infoContainer}>
+          <View style={styles.textContainer}>
+            <Text style={styles.text}>
+              {formatToPlay(round.holesToPlay)}
+            </Text>
+          </View>
+          <View style={styles.textContainer}>
+            <Text style={styles.text}>
+              {round.startedOn}
+            </Text>
+          </View>
+        </View>
       </View>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
+  detailsContainer: {
+    flex: 3,
+    flexDirection: 'column',
+    justifyContent: 'center',
+  },
+  infoContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+  },
   nameText: {
-    fontSize: Sizes.large,
+    fontSize: Sizes.mediumLarge,
     textAlign: 'center',
-    marginLeft: 0,
-    marginTop: Sizes.verySmall,
-    flex: 2,
     color: Colors.mainTitle,
   },
   roundContainer: {
-    minHeight: 90,
+    minHeight: Sizes.extraHuge,
     borderBottomWidth: 1,
     borderColor: Colors.defaultTableBorder,
     flex: 1,
+    flexDirection: 'row',
+  },
+  scoreContainer: {
+    flex: 1,
     flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  scoreText: {
+    fontSize: Sizes.extraLarge,
+    color: Colors.darkPrimary,
   },
   text: {
     fontSize: Sizes.medium,
-    flex: 1,
     textAlign: 'center',
-    color: Colors.defaultText
+    color: Colors.defaultLightText
   },
   textContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  }
+  },
 })
 
 export default RoundInfo

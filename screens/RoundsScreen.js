@@ -6,6 +6,7 @@ import gql from 'graphql-tag';
 
 import RoundItem from '../components/RoundItem'
 import Header from '../components/Header'
+import Colors from '../constants/Colors'
 
 class RoundsScreen extends React.Component {
   static navigationOptions = {
@@ -45,7 +46,7 @@ class RoundsScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: Colors.backgroundColor,
   },
 });
 

@@ -13,7 +13,7 @@ import Colors from '../constants/Colors'
 const Score = ({ score }) => {
   return (
     <View style={styles.scoreRow}>
-      <View style={[styles.rowItem, styles.holeNumber]}>
+      <View style={styles.rowItem}>
         <Text style={styles.rowText}>
           {score.hole.holeNumber}
         </Text>
@@ -40,13 +40,11 @@ const Score = ({ score }) => {
 }
 
 export const styles = StyleSheet.create({
-  holeNumber: {
-    textAlign: 'left'
-  },
   scoreRow: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center'
   },
   rowItem: {
     borderBottomWidth: 1,
@@ -55,6 +53,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     paddingTop: Sizes.small,
     paddingBottom: Sizes.small,
+    justifyContent: 'center',
   },
   rowText: {
     flex: 1,

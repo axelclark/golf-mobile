@@ -12,7 +12,7 @@ import Colors from '../constants/Colors'
 const ScoresHeader = () => {
   return (
     <View style={[styles.scoreRow, headerStyles.headerRow]}>
-      <View style={[styles.rowItem, styles.holeNumber]}>
+      <View style={styles.rowItem}>
         <Text style={[styles.rowText, headerStyles.headerText]}>
           Hole
         </Text>
@@ -39,13 +39,14 @@ const ScoresHeader = () => {
 const headerStyles = StyleSheet.create({
   headerText: {
     fontSize: Sizes.medium,
-    color: Colors.defaultText,
-    flex: 1,
+    color: Colors.lightPrimary,
+    flex: 0,
   },
   headerRow: {
     flex: 1,
-    minHeight: Sizes.extraLarge,
-    maxHeight: Sizes.extraLarge,
+    minHeight: Sizes.huge,
+    maxHeight: Sizes.huge,
+    alignItems: 'stretch',
   }
 })
 

@@ -9,8 +9,12 @@ const gray70 = 'hsl(0, 0%, 90%)'
 const gray80 = 'hsl(0, 0%, 95%)'
 const gray90 = 'hsl(0, 0%, 98%)'
 const white = 'hsl(0, 0%, 100%)'
+const lightPrimary = 'hsla(277, 100%, 33%, .5)'
+const darkPrimary = 'hsla(277, 100%, 33%, 1)'
 
 export default {
+  lightPrimary,
+  darkPrimary,
   gray10,
   gray20,
   gray30,
@@ -21,6 +25,7 @@ export default {
   gray80,
   gray90,
   defaultText: gray20,
+  defaultLightText: gray40,
   defaultTableBorder: gray70,
   defaultTableBackgroundColor: white,
   backgroundColor: gray80,
@@ -28,7 +33,7 @@ export default {
   tabIconDefault: gray50,
   tabIconSelected: tintColor,
   tabBar: white,
-  mainTitle: 'rgba(175, 47, 47, 0.25)',
+  mainTitle: lightPrimary,
   errorBackground: 'red',
   errorText: white,
   warningBackground: '#EAEB5E',

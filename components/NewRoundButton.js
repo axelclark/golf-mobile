@@ -16,6 +16,7 @@ const CREATE_ROUND_MUTATION = gql`
       courseId
       startedOn
       totalScore
+      holesToPlay
       course {
         id
         name

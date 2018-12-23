@@ -4,15 +4,15 @@
     "slug": "fore-score",
     "privacy": "public",
     "sdkVersion": "31.0.0",
-    "platforms": [
-      "ios",
-      "android"
-    ],
     "version": "0.1.0",
     "orientation": "portrait",
     "ios": {
-			"bundleIdentifier": "com.axel.fore-score"
-		},
+      "bundleIdentifier": "com.axelclark.forescore",
+      "supportsTablet": true
+    },
+    "android": {
+      "package": "com.axelclark.forescore"
+    },
     "icon": "./assets/images/icon.png",
     "splash": {
       "image": "./assets/images/splash.png",
@@ -25,9 +25,6 @@
     "assetBundlePatterns": [
       "**/*"
     ],
-    "ios": {
-      "supportsTablet": true
-    },
     "description": "Easily keep track of disc golf scores"
   }
 }

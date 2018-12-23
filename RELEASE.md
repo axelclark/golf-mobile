@@ -5,7 +5,7 @@
 3. Push changes to `master`
 4. Add new [release](https://github.com/axelclark/golf-mobile/releases) on GitHub
 5. Save new snapshots for App Store
-6. Run `exp build:ios` from Shell
+6. Run `expo build:ios` from Shell
 7. After the command completes it will provide a url to downloard the app file
 8. Now add the build with Xcode
     * From the Xcode menu scroll to Open Developer Tool and Choose Application Loader from the menu

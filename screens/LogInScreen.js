@@ -4,6 +4,7 @@ import {
   AsyncStorage,
   SafeAreaView,
   StyleSheet,
+  Switch,
   Text,
   View
 } from 'react-native';
@@ -18,12 +19,22 @@ import {
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 
+import Header from '../components/Header'
 import Colors from '../constants/Colors'
 import Sizes from '../constants/Sizes'
 
 const LOGIN_MUTATION = gql`
   mutation ($email: String!, $password: String!) {
-    login(email:$email, password: $password) {
+    session: login(email:$email, password: $password) {
+      token
+      user { email }
+    }
+  }
+`
+
+const CREATE_USER_MUTATION = gql`
+  mutation ($user: UserInput!) {
+    session: createUser(input: $user) {
       token
       user { email }
     }
@@ -40,6 +51,7 @@ class LogInScreen extends React.Component {
     this.state = {
       inputEmail: '',
       inputPassword: '',
+      login: true,
     }
   }
 
@@ -50,6 +62,10 @@ class LogInScreen extends React.Component {
 
   updatePassword(inputPassword) {
     this.setState({ inputPassword })
+  }
+
+  toggleLogIn(login) {
+    this.setState({ login })
   }
 
   async saveToken(token) {
@@ -63,13 +79,23 @@ class LogInScreen extends React.Component {
   }
 
   render() {
-    const { inputEmail, inputPassword } = this.state
+    const { inputEmail, inputPassword, login } = this.state
+
     const logInParams = {
       email: inputEmail,
       password: inputPassword
     }
+
+    const registrationParams = {
+      user: {
+        email: inputEmail,
+        password: inputPassword
+      }
+    }
+
     return (
       <SafeAreaView style={styles.container}>
+        <Header title={'Fore Score'}/>
         <View style={styles.formContainer}>
 
           <FormLabel>Email</FormLabel>
@@ -88,21 +114,37 @@ class LogInScreen extends React.Component {
           <FormValidationMessage></FormValidationMessage>
 
           <Mutation
-            mutation={LOGIN_MUTATION}
-            variables={logInParams}
-            update={(store, { data: { login: { token } } }) => {
+            mutation={login ? LOGIN_MUTATION : CREATE_USER_MUTATION}
+            variables={login ? logInParams : registrationParams}
+            update={(store, { data: { session: { token }  } }) => {
               console.log(token)
               this.saveToken(token)
             }}
           >
             {logInMutation => (
               <Button
-                title='Log In'
+                title={login ? 'Log In' : 'Sign up'}
                 onPress={() => logInMutation()}
+                backgroundColor={login ? Colors.darkPrimary : Colors.lightPrimary}
               />
             )}
           </Mutation>
 
+          <View style={styles.switchContainer}>
+            <View style={styles.textContainer}>
+              <Text style={styles.text}>Sign Up</Text>
+            </View>
+            <Switch
+              onValueChange = {(value) => this.toggleLogIn(value)}
+              value = {login}
+              ios_backgroundColor={Colors.lightPrimary}
+              trackColor={{true: Colors.darkPrimary}}
+              style={styles.switch}
+            />
+            <View style={styles.textContainer}>
+              <Text style={styles.text}>Log In</Text>
+            </View>
+          </View>
         </View>
       </SafeAreaView>
     );
@@ -118,8 +160,22 @@ const styles = StyleSheet.create({
   },
   formContainer: {
     flex: 1,
-    marginTop: Sizes.smallLayout,
   },
+  switch: {
+    backgroundColor: Colors.darkPrimary,
+  },
+  switchContainer: {
+    flexDirection: 'row',
+    marginTop: Sizes.large,
+    justifyContent: 'space-evenly',
+  },
+  text: {
+    color: Colors.defaultLightText,
+    fontSize: Sizes.medium,
+  },
+  textContainer: {
+    justifyContent: 'center',
+  }
 });
 
 

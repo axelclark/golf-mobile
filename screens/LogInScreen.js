@@ -52,6 +52,7 @@ class LogInScreen extends React.Component {
       inputEmail: '',
       inputPassword: '',
       login: true,
+      errorMessage: ''
     }
   }
 
@@ -68,18 +69,23 @@ class LogInScreen extends React.Component {
     this.setState({ login })
   }
 
-  async saveToken(token) {
-    console.log('token', token)
+  async saveToken({ data: { session: { token }  } }) {
     try {
       await AsyncStorage.setItem('golf:userToken', JSON.stringify(token));
       this.props.navigation.navigate('AuthLoading')
     } catch (error) {
-      console.log(`Error saving data${error}`);
+      console.log(`Error saving data ${error}`);
     }
   }
 
+  handleError(error) {
+    error.graphQLErrors.map(({ message }) => (
+      this.setState({ errorMessage: message })
+    ))
+  }
+
   render() {
-    const { inputEmail, inputPassword, login } = this.state
+    const { inputEmail, inputPassword, login, errorMessage } = this.state
 
     const logInParams = {
       email: inputEmail,
@@ -103,7 +109,7 @@ class LogInScreen extends React.Component {
             onChangeText={(text) => this.updateEmail(text)}
             inputValue={inputEmail}
           />
-          <FormValidationMessage></FormValidationMessage>
+          <FormValidationMessage>{errorMessage}</FormValidationMessage>
 
           <FormLabel>Password</FormLabel>
           <FormInput
@@ -111,15 +117,12 @@ class LogInScreen extends React.Component {
             inputValue={inputPassword}
             secureTextEntry={true}
           />
-          <FormValidationMessage></FormValidationMessage>
 
           <Mutation
             mutation={login ? LOGIN_MUTATION : CREATE_USER_MUTATION}
             variables={login ? logInParams : registrationParams}
-            update={(store, { data: { session: { token }  } }) => {
-              console.log(token)
-              this.saveToken(token)
-            }}
+            onCompleted={(data) => this.saveToken(token)}
+            onError={(error) => this.handleError(error)}
           >
             {logInMutation => (
               <Button

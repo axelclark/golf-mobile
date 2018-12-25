@@ -1,13 +1,14 @@
 import React from 'react';
 import {
+  RefreshControl,
   ScrollView,
   StyleSheet,
-  Text,
   SafeAreaView,
+  Text,
   View,
 } from 'react-native';
 
-import { graphql, compose } from 'react-apollo';
+import { graphql, Query } from 'react-apollo';
 import gql from 'graphql-tag';
 
 import Course from '../components/Course'
@@ -17,18 +18,27 @@ import Colors from '../constants/Colors'
 
 import { ROUNDS_QUERY } from './RoundsScreen'
 
+const COURSES_QUERY = gql`
+  { courses { id name numHoles} }
+`;
+
 class CoursesScreen extends React.Component {
   static navigationOptions = {
     header: null,
   };
 
-  get courses() {
-    const { data } = this.props;
-    if (data && data.courses) {
-      return data.courses;
-    } else {
-      return [];
+  constructor() {
+    super()
+    this.state = {
+      refreshing: false,
     }
+  }
+
+  _onRefresh = (refetch) => {
+    this.setState({refreshing: true});
+    refetch().then(() => {
+      this.setState({refreshing: false});
+    });
   }
 
   renderCourse(course) {
@@ -43,10 +53,26 @@ class CoursesScreen extends React.Component {
   render() {
     return (
       <SafeAreaView style={styles.container}>
-        <ScrollView>
-          <Header title={'Courses'}/>
-          {this.courses.map(course => this.renderCourse(course))}
-        </ScrollView>
+        <Header title={'Courses'}/>
+        <Query query={COURSES_QUERY}>
+          {({ loading, error, data, refetch }) => {
+            if (loading) return <Text>Fetching</Text>
+              if (error) return <Text>Error</Text>
+              const { courses } = data
+            return (
+              <ScrollView
+                refreshControl={
+                  <RefreshControl
+                    refreshing={this.state.refreshing}
+                    onRefresh={() => this._onRefresh(refetch)}
+                  />
+                }
+              >
+                {courses.map(course => this.renderCourse(course))}
+              </ScrollView>
+            )
+          }}
+        </Query>
       </SafeAreaView>
     );
   }
@@ -59,11 +85,4 @@ const styles = StyleSheet.create({
   },
 });
 
-const query = gql`
-  { courses { id name numHoles} }
-`;
-
-export default compose(
-  graphql(ROUNDS_QUERY),
-  graphql(query),
-)(CoursesScreen);
+export default graphql(ROUNDS_QUERY)(CoursesScreen)

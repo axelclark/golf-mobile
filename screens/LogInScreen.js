@@ -108,6 +108,8 @@ class LogInScreen extends React.Component {
           <FormInput
             onChangeText={(text) => this.updateEmail(text)}
             inputValue={inputEmail}
+            textContentType={'emailAddress'}
+            keyboardType={'email-address'}
           />
           <FormValidationMessage>{errorMessage}</FormValidationMessage>
 
@@ -115,6 +117,7 @@ class LogInScreen extends React.Component {
           <FormInput
             onChangeText={(text) => this.updatePassword(text)}
             inputValue={inputPassword}
+            textContentType={'password'}
             secureTextEntry={true}
           />
 

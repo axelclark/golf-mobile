@@ -69,7 +69,7 @@ class LogInScreen extends React.Component {
     this.setState({ login })
   }
 
-  async saveToken({ data: { session: { token }  } }) {
+  async saveToken({session: { token }}) {
     try {
       await AsyncStorage.setItem('golf:userToken', JSON.stringify(token));
       this.props.navigation.navigate('AuthLoading')
@@ -121,7 +121,7 @@ class LogInScreen extends React.Component {
           <Mutation
             mutation={login ? LOGIN_MUTATION : CREATE_USER_MUTATION}
             variables={login ? logInParams : registrationParams}
-            onCompleted={(data) => this.saveToken(token)}
+            onCompleted={(data) => this.saveToken(data)}
             onError={(error) => this.handleError(error)}
           >
             {logInMutation => (

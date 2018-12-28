@@ -25,42 +25,59 @@ const UPDATE_SCORE_MUTATION = gql`
     }
   }
 `
-
-const UpdateScoreButton = ({ score, change, iconName }) => {
-  let scoreParams = {
-    id: score.id,
-    score: {
-      numStrokes: score.numStrokes + change
+export default class UpdateScoreButton extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      updating: false,
     }
   }
 
-  return (
-    <View>
-      <Mutation
-        mutation={UPDATE_SCORE_MUTATION}
-        variables={scoreParams}
-      >
-        {updateScoreMutation => (
-          <TouchableOpacity
-            style={styles.container}
-            onPress={() => updateScoreMutation()}
-            onLongPress={() => {
-              scoreParams.score.numStrokes = 0
-              updateScoreMutation()
-            }}
-            delayLongPress={1000}
-          >
-            <Icon.Ionicons
-              name={iconName}
-              size={26}
-              style={styles.icons}
-              color={Colors.defaultText}
-            />
-          </TouchableOpacity>
-        )}
-      </Mutation>
-    </View>
-  )
+  onPress = (updateScoreMutation) => {
+    this.setState({updating: true})
+    updateScoreMutation().then(() => {
+      this.setState({updating: false})
+    })
+  }
+
+  render() {
+    const { score, change, iconName } = this.props
+    let scoreParams = {
+      id: score.id,
+      score: {
+        numStrokes: score.numStrokes + change
+      }
+    }
+    const { updating } = this.state
+
+    return (
+      <View>
+        <Mutation
+          mutation={UPDATE_SCORE_MUTATION}
+          variables={scoreParams}
+        >
+          {updateScoreMutation => (
+            <TouchableOpacity
+              style={styles.container}
+              onPress={() => this.onPress(updateScoreMutation)}
+              onLongPress={() => {
+                scoreParams.score.numStrokes = 0
+                updateScoreMutation()
+              }}
+              disabled={updating}
+            >
+              <Icon.Ionicons
+                name={iconName}
+                size={26}
+                style={styles.icons}
+                color={Colors.defaultText}
+              />
+            </TouchableOpacity>
+          )}
+        </Mutation>
+      </View>
+    )
+  }
 }
 
 const styles = StyleSheet.create({
@@ -74,5 +91,3 @@ const styles = StyleSheet.create({
   }
 
 })
-
-export default UpdateScoreButton

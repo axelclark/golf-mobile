@@ -58,7 +58,7 @@ const NewRoundButton = ({ course, navigation }) => {
       >
         {createRoundMutation => (
           <Button
-            onPress={() => createRoundMutation(newRound)}
+            onPress={() => createRoundMutation()}
             title='New Round'
           />
         )}

@@ -4,31 +4,41 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
+  TouchableHighlight,
 } from 'react-native'
 import { withNavigation } from 'react-navigation'
+import Swipeable from 'react-native-swipeable'
+
+import DeleteRoundButton from './DeleteRoundButton'
 
 import formatScore from '../utils/formatScore'
 import Sizes from '../constants/Sizes'
 import Colors from '../constants/Colors'
 
 const RoundItem = ({ round, navigation }) => {
+  const rightButtons = [
+    <DeleteRoundButton round={round} />
+  ];
+
   return (
-    <TouchableOpacity
-      onPress={() => navigation.navigate('ShowRound', {id: round.id})}
-    >
-      <View style={styles.roundContainer}>
-        <View style={styles.infoContainer}>
-          <Text style={styles.roundText}>
-            {round.course.name} ({round.startedOn})
-          </Text>
+    <Swipeable rightButtons={rightButtons}>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('ShowRound', {id: round.id})}
+      >
+        <View style={styles.roundContainer}>
+          <View style={styles.infoContainer}>
+            <Text style={styles.roundText}>
+              {round.course.name} ({round.startedOn})
+            </Text>
+          </View>
+          <View style={styles.scoreContainer}>
+            <Text style={styles.scoreText}>
+              {formatScore(round.totalScore)}
+            </Text>
+          </View>
         </View>
-        <View style={styles.scoreContainer}>
-          <Text style={styles.scoreText}>
-            {formatScore(round.totalScore)}
-          </Text>
-        </View>
-      </View>
-    </TouchableOpacity>
+      </TouchableOpacity>
+    </Swipeable>
   )
 }
 

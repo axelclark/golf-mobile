@@ -3,14 +3,17 @@ import { ExpoConfigView } from '@expo/samples';
 import { Button } from 'react-native-elements'
 import { AsyncStorage, View } from 'react-native'
 
-export default class SettingsScreen extends React.Component {
+import { withApollo } from 'react-apollo';
+
+class SettingsScreen extends React.Component {
   static navigationOptions = {
     title: 'app.json',
   };
 
-  async deleteUserToken() {
+  async logOutUser() {
     try {
       await AsyncStorage.removeItem('golf:userToken')
+      await this.props.client.clearStore()
       this.props.navigation.navigate('AuthLoading')
     } catch (error) {
       // Error saving data
@@ -26,9 +29,11 @@ export default class SettingsScreen extends React.Component {
         <ExpoConfigView />
         <Button
           title='Log Out'
-          onPress={() => this.deleteUserToken()}
+          onPress={() => this.logOutUser()}
         />
       </View>
     )
   }
 }
+
+export default withApollo(SettingsScreen)

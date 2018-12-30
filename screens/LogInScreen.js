@@ -132,6 +132,7 @@ class LogInScreen extends React.Component {
                 title={login ? 'Log In' : 'Sign up'}
                 onPress={() => logInMutation()}
                 backgroundColor={login ? Colors.darkPrimary : Colors.lightPrimary}
+                style={styles.button}
               />
             )}
           </Mutation>
@@ -158,6 +159,9 @@ class LogInScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  button: {
+    marginTop: Sizes.large,
+  },
   container: {
     flex: 1,
     backgroundColor: Colors.backgroundColor,
@@ -166,6 +170,7 @@ const styles = StyleSheet.create({
   },
   formContainer: {
     flex: 1,
+    maxWidth: Sizes.extraLargeLayout,
   },
   switch: {
     backgroundColor: Colors.darkPrimary,

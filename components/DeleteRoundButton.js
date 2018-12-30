@@ -1,6 +1,5 @@
 import React from 'react'
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native'
-import { Icon } from 'expo'
 
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
@@ -71,6 +70,8 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.errorBackground,
     justifyContent: 'center',
     maxWidth: Sizes.huge,
+    marginBottom: Sizes.extraSmall,
+    marginTop: Sizes.extraSmall,
   },
   text: {
     flex: 0,

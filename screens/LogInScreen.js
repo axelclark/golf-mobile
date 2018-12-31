@@ -52,7 +52,9 @@ class LogInScreen extends React.Component {
       inputEmail: '',
       inputPassword: '',
       login: true,
-      errorMessage: ''
+      errorMessage: '',
+      emailError: '',
+      passwordError: '',
     }
   }
 
@@ -65,7 +67,16 @@ class LogInScreen extends React.Component {
     this.setState({ inputPassword })
   }
 
+  resetErrors() {
+    this.setState({
+      errorMessage: '',
+      emailError: '',
+      passwordError: ''
+    })
+  }
+
   toggleLogIn(login) {
+    this.resetErrors()
     this.setState({ login })
   }
 
@@ -78,14 +89,34 @@ class LogInScreen extends React.Component {
     }
   }
 
-  handleError(error) {
-    error.graphQLErrors.map(({ message }) => (
-      this.setState({ errorMessage: message })
-    ))
+  handleError({ graphQLErrors, networkError }) {
+    if (graphQLErrors) {
+      graphQLErrors.map(({ message, details }) => {
+        this.setState({ errorMessage: message })
+        if (details) {
+          if (details.email) {
+            this.setState({ emailError: details.email.join() })
+          }
+          if (details.password) {
+            this.setState({ passwordError: details.password.join() })
+          }
+        }
+      })
+    }
+    if (networkError) {
+      this.setState({ errorMessage: networkError.message })
+    }
   }
 
   render() {
-    const { inputEmail, inputPassword, login, errorMessage } = this.state
+    const {
+      inputEmail,
+      inputPassword,
+      login,
+      errorMessage,
+      emailError,
+      passwordError,
+    } = this.state
 
     const logInParams = {
       email: inputEmail,
@@ -104,6 +135,8 @@ class LogInScreen extends React.Component {
         <Header title={'Fore Score'}/>
         <View style={styles.formContainer}>
 
+          <FormValidationMessage>{errorMessage}</FormValidationMessage>
+
           <FormLabel>Email</FormLabel>
           <FormInput
             onChangeText={(text) => this.updateEmail(text)}
@@ -111,7 +144,7 @@ class LogInScreen extends React.Component {
             textContentType={'emailAddress'}
             keyboardType={'email-address'}
           />
-          <FormValidationMessage>{errorMessage}</FormValidationMessage>
+          <FormValidationMessage>{emailError}</FormValidationMessage>
 
           <FormLabel>Password</FormLabel>
           <FormInput
@@ -120,6 +153,7 @@ class LogInScreen extends React.Component {
             textContentType={'password'}
             secureTextEntry={true}
           />
+          <FormValidationMessage>{passwordError}</FormValidationMessage>
 
           <Mutation
             mutation={login ? LOGIN_MUTATION : CREATE_USER_MUTATION}

@@ -1,18 +1,18 @@
-import React from 'react';
+import React from "react"
 import {
   RefreshControl,
   SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
-} from 'react-native';
+} from "react-native"
 
-import { Query } from 'react-apollo';
-import gql from 'graphql-tag';
+import { Query } from "react-apollo"
+import gql from "graphql-tag"
 
-import RoundItem from '../components/RoundItem'
-import Header from '../components/Header'
-import Colors from '../constants/Colors'
+import RoundItem from "../components/RoundItem"
+import Header from "../components/Header"
+import Colors from "../constants/Colors"
 
 export const ROUNDS_QUERY = gql`
   {
@@ -28,12 +28,12 @@ export const ROUNDS_QUERY = gql`
       }
     }
   }
-`;
+`
 
 class RoundsScreen extends React.Component {
   static navigationOptions = {
     header: null,
-  };
+  }
 
   constructor() {
     super()
@@ -42,32 +42,28 @@ class RoundsScreen extends React.Component {
     }
   }
 
-  _onRefresh = (refetch) => {
-    this.setState({refreshing: true});
+  _onRefresh = refetch => {
+    this.setState({ refreshing: true })
     refetch().then(() => {
-      this.setState({refreshing: false});
-    });
+      this.setState({ refreshing: false })
+    })
   }
 
   renderRound(round) {
     return (
-      <RoundItem
-        key={round.id}
-        round={round}
-        ROUNDS_QUERY={ROUNDS_QUERY}
-      />
+      <RoundItem key={round.id} round={round} ROUNDS_QUERY={ROUNDS_QUERY} />
     )
   }
 
   render() {
     return (
       <SafeAreaView style={styles.container}>
-        <Header title={'Rounds'}/>
+        <Header title={"Rounds"} />
         <Query query={ROUNDS_QUERY}>
           {({ loading, error, data, refetch }) => {
             if (loading) return <Text>Fetching</Text>
-              if (error) return <Text>Error</Text>
-              const { rounds } = data
+            if (error) return <Text>Error</Text>
+            const { rounds } = data
             return (
               <ScrollView
                 refreshControl={
@@ -83,7 +79,7 @@ class RoundsScreen extends React.Component {
           }}
         </Query>
       </SafeAreaView>
-    );
+    )
   }
 }
 
@@ -92,6 +88,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.backgroundColor,
   },
-});
+})
 
 export default RoundsScreen

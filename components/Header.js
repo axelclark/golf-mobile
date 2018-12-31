@@ -1,12 +1,8 @@
-import React from 'react'
-import {
-  View,
-  Text,
-  StyleSheet,
-} from 'react-native'
+import React from "react"
+import { View, Text, StyleSheet } from "react-native"
 
-import Sizes from '../constants/Sizes'
-import Colors from '../constants/Colors'
+import Sizes from "../constants/Sizes"
+import Colors from "../constants/Colors"
 
 const Header = ({ title }) => {
   return (
@@ -30,10 +26,10 @@ const styles = StyleSheet.create({
     marginRight: Sizes.verySmall,
   },
   headerText: {
-    textAlign: 'center',
+    textAlign: "center",
     fontSize: Sizes.extraHuge,
     color: Colors.mainTitle,
-    fontWeight: '100'
+    fontWeight: "100",
   },
 })
 

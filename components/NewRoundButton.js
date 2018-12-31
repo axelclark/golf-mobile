@@ -1,16 +1,16 @@
-import React from 'react'
-import { View, StyleSheet } from 'react-native'
-import { Button } from 'react-native'
-import { withNavigation } from 'react-navigation'
+import React from "react"
+import { View, StyleSheet } from "react-native"
+import { Button } from "react-native"
+import { withNavigation } from "react-navigation"
 
-import { Mutation } from 'react-apollo';
-import gql from 'graphql-tag';
+import { Mutation } from "react-apollo"
+import gql from "graphql-tag"
 
-import { ROUNDS_QUERY } from '../screens/RoundsScreen'
-import Sizes from '../constants/Sizes'
+import { ROUNDS_QUERY } from "../screens/RoundsScreen"
+import Sizes from "../constants/Sizes"
 
 const CREATE_ROUND_MUTATION = gql`
-  mutation ($round: RoundInput!) {
+  mutation($round: RoundInput!) {
     round: createRound(input: $round) {
       id
       courseId
@@ -37,8 +37,8 @@ const CREATE_ROUND_MUTATION = gql`
 const NewRoundButton = ({ course, navigation }) => {
   const newRound = {
     round: {
-      courseId: Number(course.id)
-    }
+      courseId: Number(course.id),
+    },
   }
 
   return (
@@ -46,21 +46,18 @@ const NewRoundButton = ({ course, navigation }) => {
       <Mutation
         mutation={CREATE_ROUND_MUTATION}
         variables={newRound}
-        onCompleted={() => navigation.navigate('Rounds')}
+        onCompleted={() => navigation.navigate("Rounds")}
         update={(store, { data: { round } }) => {
           const data = store.readQuery({ query: ROUNDS_QUERY })
           data.rounds.push(round)
           store.writeQuery({
             query: ROUNDS_QUERY,
-            data
+            data,
           })
         }}
       >
         {createRoundMutation => (
-          <Button
-            onPress={() => createRoundMutation()}
-            title='New Round'
-          />
+          <Button onPress={() => createRoundMutation()} title="New Round" />
         )}
       </Mutation>
     </View>
@@ -72,8 +69,8 @@ const styles = StyleSheet.create({
     maxWidth: 100,
     maxHeight: 50,
     margin: Sizes.verySmall,
-    flex: 1
-  }
+    flex: 1,
+  },
 })
 
 export default withNavigation(NewRoundButton)

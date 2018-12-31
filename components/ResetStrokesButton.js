@@ -1,14 +1,14 @@
-import React from 'react'
-import { View, TouchableOpacity, Text, StyleSheet } from 'react-native'
+import React from "react"
+import { View, TouchableOpacity, Text, StyleSheet } from "react-native"
 
-import { Mutation } from 'react-apollo';
-import gql from 'graphql-tag';
+import { Mutation } from "react-apollo"
+import gql from "graphql-tag"
 
-import Colors from '../constants/Colors';
-import Sizes from '../constants/Sizes';
+import Colors from "../constants/Colors"
+import Sizes from "../constants/Sizes"
 
 const UPDATE_SCORE_MUTATION = gql`
-  mutation ($id: ID!, $score: ScoreInput!) {
+  mutation($id: ID!, $score: ScoreInput!) {
     score: updateScore(id: $id, input: $score) {
       id
       numStrokes
@@ -36,15 +36,12 @@ export default class ResetStrokesButton extends React.Component {
     const scoreParams = {
       id: score.id,
       score: {
-        numStrokes: 0
-      }
+        numStrokes: 0,
+      },
     }
     return (
       <View style={{ flex: 1 }}>
-        <Mutation
-          mutation={UPDATE_SCORE_MUTATION}
-          variables={scoreParams}
-        >
+        <Mutation mutation={UPDATE_SCORE_MUTATION} variables={scoreParams}>
           {updateScoreMutation => (
             <TouchableOpacity
               onPress={() => {
@@ -54,9 +51,7 @@ export default class ResetStrokesButton extends React.Component {
               style={{ flex: 1 }}
             >
               <View style={styles.container}>
-                <Text style={styles.text}>
-                  Reset{"\n"}Strokes
-                </Text>
+                <Text style={styles.text}>Reset{"\n"}Strokes</Text>
               </View>
             </TouchableOpacity>
           )}
@@ -70,7 +65,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.darkPrimary,
-    justifyContent: 'center',
+    justifyContent: "center",
     maxWidth: Sizes.huge,
     marginBottom: 4,
     marginTop: 4,
@@ -79,7 +74,6 @@ const styles = StyleSheet.create({
   text: {
     flex: 0,
     color: Colors.errorText,
-    textAlign: 'center',
-  }
-
+    textAlign: "center",
+  },
 })

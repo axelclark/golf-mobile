@@ -1,31 +1,35 @@
-import React from 'react';
+import React from "react"
 import {
   RefreshControl,
   ScrollView,
   StyleSheet,
   SafeAreaView,
   Text,
-  View,
-} from 'react-native';
+} from "react-native"
 
-import { graphql, Query } from 'react-apollo';
-import gql from 'graphql-tag';
+import { graphql, Query } from "react-apollo"
+import gql from "graphql-tag"
 
-import Course from '../components/Course'
-import Header from '../components/Header'
-import Colors from '../constants/Colors'
+import Course from "../components/Course"
+import Header from "../components/Header"
+import Colors from "../constants/Colors"
 
-
-import { ROUNDS_QUERY } from './RoundsScreen'
+import { ROUNDS_QUERY } from "./RoundsScreen"
 
 const COURSES_QUERY = gql`
-  { courses { id name numHoles} }
-`;
+  {
+    courses {
+      id
+      name
+      numHoles
+    }
+  }
+`
 
 class CoursesScreen extends React.Component {
   static navigationOptions = {
     header: null,
-  };
+  }
 
   constructor() {
     super()
@@ -34,31 +38,26 @@ class CoursesScreen extends React.Component {
     }
   }
 
-  _onRefresh = (refetch) => {
-    this.setState({refreshing: true});
+  _onRefresh = refetch => {
+    this.setState({ refreshing: true })
     refetch().then(() => {
-      this.setState({refreshing: false});
-    });
+      this.setState({ refreshing: false })
+    })
   }
 
   renderCourse(course) {
-    return (
-      <Course
-        key={course.id}
-        course={course}
-      />
-    )
+    return <Course key={course.id} course={course} />
   }
 
   render() {
     return (
       <SafeAreaView style={styles.container}>
-        <Header title={'Courses'}/>
+        <Header title={"Courses"} />
         <Query query={COURSES_QUERY}>
           {({ loading, error, data, refetch }) => {
             if (loading) return <Text>Fetching</Text>
-              if (error) return <Text>Error</Text>
-              const { courses } = data
+            if (error) return <Text>Error</Text>
+            const { courses } = data
             return (
               <ScrollView
                 refreshControl={
@@ -74,7 +73,7 @@ class CoursesScreen extends React.Component {
           }}
         </Query>
       </SafeAreaView>
-    );
+    )
   }
 }
 
@@ -83,6 +82,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.backgroundColor,
   },
-});
+})
 
 export default graphql(ROUNDS_QUERY)(CoursesScreen)

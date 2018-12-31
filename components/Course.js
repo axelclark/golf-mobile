@@ -1,9 +1,9 @@
-import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import React from "react"
+import { View, Text, StyleSheet } from "react-native"
 
-import NewRoundButton from './NewRoundButton'
-import Sizes from '../constants/Sizes'
-import Colors from '../constants/Colors'
+import NewRoundButton from "./NewRoundButton"
+import Sizes from "../constants/Sizes"
+import Colors from "../constants/Colors"
 
 const Course = ({ course }) => {
   return (
@@ -13,7 +13,7 @@ const Course = ({ course }) => {
           {course.name} ({course.numHoles})
         </Text>
       </View>
-      <NewRoundButton course={course}/>
+      <NewRoundButton course={course} />
     </View>
   )
 }
@@ -29,9 +29,9 @@ const styles = StyleSheet.create({
     marginRight: Sizes.verySmall,
     marginBottom: 2,
     flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center'
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   courseText: {
     fontSize: Sizes.medium,
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   textContainer: {
     flex: 1,
     marginLeft: Sizes.verySmall,
-  }
+  },
 })
 
 export default Course

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react"
 
 import {
   AsyncStorage,
@@ -6,37 +6,41 @@ import {
   StyleSheet,
   Switch,
   Text,
-  View
-} from 'react-native';
+  View,
+} from "react-native"
 
 import {
   Button,
   FormLabel,
   FormInput,
-  FormValidationMessage
-} from 'react-native-elements'
+  FormValidationMessage,
+} from "react-native-elements"
 
-import { Mutation } from 'react-apollo';
-import gql from 'graphql-tag';
+import { Mutation } from "react-apollo"
+import gql from "graphql-tag"
 
-import Header from '../components/Header'
-import Colors from '../constants/Colors'
-import Sizes from '../constants/Sizes'
+import Header from "../components/Header"
+import Colors from "../constants/Colors"
+import Sizes from "../constants/Sizes"
 
 const LOGIN_MUTATION = gql`
-  mutation ($email: String!, $password: String!) {
-    session: login(email:$email, password: $password) {
+  mutation($email: String!, $password: String!) {
+    session: login(email: $email, password: $password) {
       token
-      user { email }
+      user {
+        email
+      }
     }
   }
 `
 
 const CREATE_USER_MUTATION = gql`
-  mutation ($user: UserInput!) {
+  mutation($user: UserInput!) {
     session: createUser(input: $user) {
       token
-      user { email }
+      user {
+        email
+      }
     }
   }
 `
@@ -44,17 +48,17 @@ const CREATE_USER_MUTATION = gql`
 class LogInScreen extends React.Component {
   static navigationOptions = {
     header: null,
-  };
+  }
 
   constructor() {
     super()
     this.state = {
-      inputEmail: '',
-      inputPassword: '',
+      inputEmail: "",
+      inputPassword: "",
       login: true,
-      errorMessage: '',
-      emailError: '',
-      passwordError: '',
+      errorMessage: "",
+      emailError: "",
+      passwordError: "",
     }
   }
 
@@ -69,9 +73,9 @@ class LogInScreen extends React.Component {
 
   resetErrors() {
     this.setState({
-      errorMessage: '',
-      emailError: '',
-      passwordError: ''
+      errorMessage: "",
+      emailError: "",
+      passwordError: "",
     })
   }
 
@@ -80,12 +84,13 @@ class LogInScreen extends React.Component {
     this.setState({ login })
   }
 
-  async saveToken({session: { token }}) {
+  async saveToken({ session: { token } }) {
     try {
-      await AsyncStorage.setItem('golf:userToken', JSON.stringify(token));
-      this.props.navigation.navigate('AuthLoading')
+      await AsyncStorage.setItem("golf:userToken", JSON.stringify(token))
+      this.props.navigation.navigate("AuthLoading")
     } catch (error) {
-      console.log(`Error saving data ${error}`);
+      // eslint-disable-next-line no-console
+      console.log(`Error saving data ${error}`)
     }
   }
 
@@ -120,38 +125,37 @@ class LogInScreen extends React.Component {
 
     const logInParams = {
       email: inputEmail,
-      password: inputPassword
+      password: inputPassword,
     }
 
     const registrationParams = {
       user: {
         email: inputEmail,
-        password: inputPassword
-      }
+        password: inputPassword,
+      },
     }
 
     return (
       <SafeAreaView style={styles.container}>
-        <Header title={'ForeScore'}/>
+        <Header title={"ForeScore"} />
         <View style={styles.formContainer}>
-
           <FormValidationMessage>{errorMessage}</FormValidationMessage>
 
           <FormLabel>Email</FormLabel>
           <FormInput
-            onChangeText={(text) => this.updateEmail(text)}
+            onChangeText={text => this.updateEmail(text)}
             inputValue={inputEmail}
-            textContentType={'emailAddress'}
-            keyboardType={'email-address'}
-            autoCapitalize={'none'}
+            textContentType={"emailAddress"}
+            keyboardType={"email-address"}
+            autoCapitalize={"none"}
           />
           <FormValidationMessage>{emailError}</FormValidationMessage>
 
           <FormLabel>Password</FormLabel>
           <FormInput
-            onChangeText={(text) => this.updatePassword(text)}
+            onChangeText={text => this.updatePassword(text)}
             inputValue={inputPassword}
-            textContentType={'password'}
+            textContentType={"password"}
             secureTextEntry={true}
           />
           <FormValidationMessage>{passwordError}</FormValidationMessage>
@@ -159,14 +163,16 @@ class LogInScreen extends React.Component {
           <Mutation
             mutation={login ? LOGIN_MUTATION : CREATE_USER_MUTATION}
             variables={login ? logInParams : registrationParams}
-            onCompleted={(data) => this.saveToken(data)}
-            onError={(error) => this.handleError(error)}
+            onCompleted={data => this.saveToken(data)}
+            onError={error => this.handleError(error)}
           >
             {logInMutation => (
               <Button
-                title={login ? 'Log In' : 'Sign up'}
+                title={login ? "Log In" : "Sign up"}
                 onPress={() => logInMutation()}
-                backgroundColor={login ? Colors.darkPrimary : Colors.lightPrimary}
+                backgroundColor={
+                  login ? Colors.darkPrimary : Colors.lightPrimary
+                }
                 style={styles.button}
               />
             )}
@@ -177,10 +183,10 @@ class LogInScreen extends React.Component {
               <Text style={styles.text}>Sign Up</Text>
             </View>
             <Switch
-              onValueChange = {(value) => this.toggleLogIn(value)}
-              value = {login}
+              onValueChange={value => this.toggleLogIn(value)}
+              value={login}
               ios_backgroundColor={Colors.lightPrimary}
-              trackColor={{true: Colors.darkPrimary}}
+              trackColor={{ true: Colors.darkPrimary }}
               style={styles.switch}
             />
             <View style={styles.textContainer}>
@@ -189,7 +195,7 @@ class LogInScreen extends React.Component {
           </View>
         </View>
       </SafeAreaView>
-    );
+    )
   }
 }
 
@@ -200,8 +206,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.backgroundColor,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   formContainer: {
     flex: 1,
@@ -211,18 +217,17 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.darkPrimary,
   },
   switchContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
     marginTop: Sizes.large,
-    justifyContent: 'space-evenly',
+    justifyContent: "space-evenly",
   },
   text: {
     color: Colors.defaultLightText,
     fontSize: Sizes.medium,
   },
   textContainer: {
-    justifyContent: 'center',
-  }
-});
-
+    justifyContent: "center",
+  },
+})
 
 export default LogInScreen

@@ -1,22 +1,17 @@
-import React from 'react'
-import {
-  Button,
-  Text,
-  StyleSheet,
-  View,
-} from 'react-native'
-import Swipeable from 'react-native-swipeable'
+import React from "react"
+import { Text, StyleSheet, View } from "react-native"
+import Swipeable from "react-native-swipeable"
 
-import UpdateScoreButton from './UpdateScoreButton'
-import ResetStrokesButton from './ResetStrokesButton'
-import Sizes from '../constants/Sizes'
-import Colors from '../constants/Colors'
+import UpdateScoreButton from "./UpdateScoreButton"
+import ResetStrokesButton from "./ResetStrokesButton"
+import Sizes from "../constants/Sizes"
+import Colors from "../constants/Colors"
 
 export default class Score extends React.Component {
   constructor() {
     super()
     this.state = {
-      swipeable: null
+      swipeable: null,
     }
   }
 
@@ -24,35 +19,29 @@ export default class Score extends React.Component {
     const { score } = this.props
     const { swipeable } = this.state
     const rightButtons = [
-      <ResetStrokesButton score={score} swipeable={swipeable} />
+      <ResetStrokesButton key={1} score={score} swipeable={swipeable} />,
     ]
     return (
       <Swipeable
-        onRef={(ref) => this.setState({ swipeable: ref })}
+        onRef={ref => this.setState({ swipeable: ref })}
         rightButtons={rightButtons}
       >
         <View style={styles.scoreRow}>
           <View style={styles.rowItem}>
-            <Text style={styles.rowText}>
-              {score.hole.holeNumber}
-            </Text>
+            <Text style={styles.rowText}>{score.hole.holeNumber}</Text>
           </View>
           <View style={styles.rowItem}>
-            <Text style={styles.rowText}>
-              {score.hole.par}
-            </Text>
+            <Text style={styles.rowText}>{score.hole.par}</Text>
           </View>
           <View style={styles.rowItem}>
             <UpdateScoreButton
-              iconName='ios-add-circle-outline'
+              iconName="ios-add-circle-outline"
               score={score}
               change={1}
             />
           </View>
           <View style={styles.rowItem}>
-            <Text style={styles.rowText}>
-              {score.numStrokes}
-            </Text>
+            <Text style={styles.rowText}>{score.numStrokes}</Text>
           </View>
         </View>
       </Swipeable>
@@ -63,9 +52,9 @@ export default class Score extends React.Component {
 export const styles = StyleSheet.create({
   scoreRow: {
     flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center'
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   rowItem: {
     borderBottomWidth: 1,
@@ -74,12 +63,12 @@ export const styles = StyleSheet.create({
     flex: 1,
     paddingTop: Sizes.small,
     paddingBottom: Sizes.small,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   rowText: {
     flex: 1,
     fontSize: Sizes.mediumLarge,
-    textAlign: 'center',
+    textAlign: "center",
     color: Colors.defaultText,
   },
 })

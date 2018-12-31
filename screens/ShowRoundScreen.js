@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react"
 import {
   RefreshControl,
   SafeAreaView,
@@ -6,18 +6,18 @@ import {
   StyleSheet,
   Text,
   View,
-} from 'react-native';
+} from "react-native"
 
-import { Query } from 'react-apollo';
-import gql from 'graphql-tag';
+import { Query } from "react-apollo"
+import gql from "graphql-tag"
 
-import RoundInfo from '../components/RoundInfo'
-import ScoresHeader from '../components/ScoresHeader'
-import Score from '../components/Score'
-import Colors from '../constants/Colors'
+import RoundInfo from "../components/RoundInfo"
+import ScoresHeader from "../components/ScoresHeader"
+import Score from "../components/Score"
+import Colors from "../constants/Colors"
 
 export const ROUND_QUERY = gql`
-  query ($id: ID!) {
+  query($id: ID!) {
     round(id: $id) {
       id
       startedOn
@@ -26,7 +26,7 @@ export const ROUND_QUERY = gql`
       course {
         id
         name
-      },
+      }
       scores {
         id
         numStrokes
@@ -39,12 +39,11 @@ export const ROUND_QUERY = gql`
     }
   }
 `
-;
 
 class ShowRoundScreen extends React.Component {
   static navigationOptions = {
-    title: 'Round',
-  };
+    title: "Round",
+  }
 
   constructor() {
     super()
@@ -53,32 +52,33 @@ class ShowRoundScreen extends React.Component {
     }
   }
 
-  _onRefresh = (refetch) => {
-    this.setState({refreshing: true});
+  _onRefresh = refetch => {
+    this.setState({ refreshing: true })
     refetch().then(() => {
-      this.setState({refreshing: false});
-    });
+      this.setState({ refreshing: false })
+    })
   }
 
-  sortByHole = scores => scores.sort((a, b) => {
-    return parseInt(a.hole.holeNumber) - parseInt(b.hole.holeNumber)
-  })
+  sortByHole = scores =>
+    scores.sort((a, b) => {
+      return parseInt(a.hole.holeNumber) - parseInt(b.hole.holeNumber)
+    })
 
   render() {
-    const id = this.props.navigation.getParam('id', 'Error')
+    const id = this.props.navigation.getParam("id", "Error")
     return (
       <SafeAreaView style={styles.container}>
         <Query query={ROUND_QUERY} variables={{ id }}>
           {({ loading, error, data, refetch }) => {
             if (loading) return <Text>Fetching</Text>
-              if (error) return <Text>Error</Text>
+            if (error) return <Text>Error</Text>
 
-              const scoresToRender = this.sortByHole(data.round.scores)
+            const scoresToRender = this.sortByHole(data.round.scores)
 
             return (
               <View style={{ flex: 1 }}>
                 <RoundInfo round={data.round} />
-                <ScoresHeader/>
+                <ScoresHeader />
                 <ScrollView
                   refreshControl={
                     <RefreshControl
@@ -87,14 +87,16 @@ class ShowRoundScreen extends React.Component {
                     />
                   }
                 >
-                  {scoresToRender.map(score => <Score key={score.id} score={score} />)}
+                  {scoresToRender.map(score => (
+                    <Score key={score.id} score={score} />
+                  ))}
                 </ScrollView>
               </View>
             )
           }}
         </Query>
       </SafeAreaView>
-    );
+    )
   }
 }
 
@@ -103,6 +105,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.backgroundColor,
   },
-});
+})
 
 export default ShowRoundScreen

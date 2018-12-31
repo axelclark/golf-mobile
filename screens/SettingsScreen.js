@@ -1,23 +1,23 @@
-import React from 'react';
-import { ExpoConfigView } from '@expo/samples';
-import { Button } from 'react-native-elements'
-import { AsyncStorage, View } from 'react-native'
+import React from "react"
+import { ExpoConfigView } from "@expo/samples"
+import { Button } from "react-native-elements"
+import { AsyncStorage, View } from "react-native"
 
-import { withApollo } from 'react-apollo';
+import { withApollo } from "react-apollo"
 
 class SettingsScreen extends React.Component {
   static navigationOptions = {
-    title: 'app.json',
-  };
+    title: "app.json",
+  }
 
   async logOutUser() {
     try {
-      await AsyncStorage.removeItem('golf:userToken')
+      await AsyncStorage.removeItem("golf:userToken")
       await this.props.client.clearStore()
-      this.props.navigation.navigate('AuthLoading')
+      this.props.navigation.navigate("AuthLoading")
     } catch (error) {
-      // Error saving data
-      console.log('error deleting token', error)
+      // eslint-disable-next-line no-console
+      console.log("error deleting token", error)
     }
   }
 
@@ -27,10 +27,7 @@ class SettingsScreen extends React.Component {
     return (
       <View>
         <ExpoConfigView />
-        <Button
-          title='Log Out'
-          onPress={() => this.logOutUser()}
-        />
+        <Button title="Log Out" onPress={() => this.logOutUser()} />
       </View>
     )
   }

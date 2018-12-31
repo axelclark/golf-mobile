@@ -1,14 +1,14 @@
-import React from 'react'
-import { View, TouchableOpacity, Text, StyleSheet } from 'react-native'
+import React from "react"
+import { View, TouchableOpacity, Text, StyleSheet } from "react-native"
 
-import { Mutation } from 'react-apollo';
-import gql from 'graphql-tag';
+import { Mutation } from "react-apollo"
+import gql from "graphql-tag"
 
-import Colors from '../constants/Colors';
-import Sizes from '../constants/Sizes';
+import Colors from "../constants/Colors"
+import Sizes from "../constants/Sizes"
 
 const DELETE_ROUND_MUTATION = gql`
-  mutation ($id: ID!) {
+  mutation($id: ID!) {
     round: deleteRound(id: $id) {
       id
     }
@@ -23,10 +23,10 @@ export default class DeleteRoundButton extends React.Component {
   render() {
     const { round, ROUNDS_QUERY } = this.props
     const roundParams = {
-      id: round.id
+      id: round.id,
     }
     const deleteRound = (rounds, roundId) => {
-      return rounds.filter((round) => {
+      return rounds.filter(round => {
         return round.id !== roundId
       })
     }
@@ -41,7 +41,7 @@ export default class DeleteRoundButton extends React.Component {
             data.rounds = newRounds
             store.writeQuery({
               query: ROUNDS_QUERY,
-              data
+              data,
             })
           }}
         >
@@ -51,9 +51,7 @@ export default class DeleteRoundButton extends React.Component {
               style={{ flex: 1 }}
             >
               <View style={styles.container}>
-                <Text style={styles.text}>
-                  Delete{"\n"}Round
-                </Text>
+                <Text style={styles.text}>Delete{"\n"}Round</Text>
               </View>
             </TouchableOpacity>
           )}
@@ -67,7 +65,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.errorBackground,
-    justifyContent: 'center',
+    justifyContent: "center",
     maxWidth: Sizes.huge,
     marginBottom: Sizes.extraSmall,
     marginTop: Sizes.extraSmall,
@@ -75,7 +73,6 @@ const styles = StyleSheet.create({
   text: {
     flex: 0,
     color: Colors.errorText,
-    textAlign: 'center',
-  }
-
+    textAlign: "center",
+  },
 })

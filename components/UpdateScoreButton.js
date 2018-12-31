@@ -1,14 +1,14 @@
-import React from 'react'
-import { View, TouchableOpacity, Text, StyleSheet } from 'react-native'
-import { Icon } from 'expo'
+import React from "react"
+import { View, TouchableOpacity, StyleSheet } from "react-native"
+import { Icon } from "expo"
 
-import { Mutation } from 'react-apollo';
-import gql from 'graphql-tag';
+import { Mutation } from "react-apollo"
+import gql from "graphql-tag"
 
-import Colors from '../constants/Colors';
+import Colors from "../constants/Colors"
 
 const UPDATE_SCORE_MUTATION = gql`
-  mutation ($id: ID!, $score: ScoreInput!) {
+  mutation($id: ID!, $score: ScoreInput!) {
     score: updateScore(id: $id, input: $score) {
       id
       numStrokes
@@ -33,10 +33,10 @@ export default class UpdateScoreButton extends React.Component {
     }
   }
 
-  onPress = (updateScoreMutation) => {
-    this.setState({updating: true})
+  onPress = updateScoreMutation => {
+    this.setState({ updating: true })
     updateScoreMutation().then(() => {
-      this.setState({updating: false})
+      this.setState({ updating: false })
     })
   }
 
@@ -45,17 +45,14 @@ export default class UpdateScoreButton extends React.Component {
     let scoreParams = {
       id: score.id,
       score: {
-        numStrokes: score.numStrokes + change
-      }
+        numStrokes: score.numStrokes + change,
+      },
     }
     const { updating } = this.state
 
     return (
       <View>
-        <Mutation
-          mutation={UPDATE_SCORE_MUTATION}
-          variables={scoreParams}
-        >
+        <Mutation mutation={UPDATE_SCORE_MUTATION} variables={scoreParams}>
           {updateScoreMutation => (
             <TouchableOpacity
               style={styles.container}
@@ -82,12 +79,11 @@ export default class UpdateScoreButton extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: 'center',
+    justifyContent: "center",
     flex: 1,
-    flexDirection: 'row',
+    flexDirection: "row",
   },
   icon: {
     flex: 1,
-  }
-
+  },
 })

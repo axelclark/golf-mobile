@@ -1,29 +1,23 @@
-import React from 'react'
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  TouchableHighlight,
-} from 'react-native'
-import { withNavigation } from 'react-navigation'
-import Swipeable from 'react-native-swipeable'
+import React from "react"
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native"
+import { withNavigation } from "react-navigation"
+import Swipeable from "react-native-swipeable"
 
-import DeleteRoundButton from './DeleteRoundButton'
+import DeleteRoundButton from "./DeleteRoundButton"
 
-import formatScore from '../utils/formatScore'
-import Sizes from '../constants/Sizes'
-import Colors from '../constants/Colors'
+import formatScore from "../utils/formatScore"
+import Sizes from "../constants/Sizes"
+import Colors from "../constants/Colors"
 
 const RoundItem = ({ round, navigation, ROUNDS_QUERY }) => {
   const rightButtons = [
-    <DeleteRoundButton round={round} ROUNDS_QUERY={ROUNDS_QUERY}/>
-  ];
+    <DeleteRoundButton key={1} round={round} ROUNDS_QUERY={ROUNDS_QUERY} />,
+  ]
 
   return (
     <Swipeable rightButtons={rightButtons}>
       <TouchableOpacity
-        onPress={() => navigation.navigate('ShowRound', {id: round.id})}
+        onPress={() => navigation.navigate("ShowRound", { id: round.id })}
       >
         <View style={styles.roundContainer}>
           <View style={styles.infoContainer}>
@@ -51,17 +45,17 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderRightWidth: 1,
     borderLeftWidth: 1,
-    borderColor: '#ededed',
-    backgroundColor: '#fff',
+    borderColor: "#ededed",
+    backgroundColor: "#fff",
     marginLeft: Sizes.verySmall,
     marginRight: Sizes.verySmall,
     marginBottom: 2,
     paddingTop: Sizes.medium,
     paddingBottom: Sizes.medium,
     flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   roundText: {
     fontSize: Sizes.medium,
@@ -75,7 +69,7 @@ const styles = StyleSheet.create({
   },
   scoreText: {
     fontSize: Sizes.medium,
-    textAlign: 'center',
+    textAlign: "center",
     color: Colors.defaultText,
   },
 })

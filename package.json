@@ -8,7 +8,7 @@
     "test": "node ./node_modules/jest/bin/jest.js --watchAll",
     "eslint": "eslint **/*.js"
   },
-    "husky": {
+  "husky": {
     "hooks": {
       "pre-commit": "yarn eslint --quiet"
     }
@@ -42,7 +42,8 @@
     "eslint-plugin-react-native": "^3.5.0",
     "husky": "^1.3.1",
     "jest-expo": "^31.0.0",
-    "prettier": "1.15.3"
+    "prettier": "1.15.3",
+    "waait": "^1.0.2"
   },
   "private": true
 }

@@ -49,5 +49,8 @@ module.exports = {
     "react/prop-types": 0,
     "react/jsx-no-bind": 0,
     "react/jsx-no-duplicate-props": 2,
+  },
+  "globals": {
+    "__DEV__": true
   }
 };

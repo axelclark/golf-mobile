@@ -11,7 +11,11 @@ import Colors from '../constants/Colors'
 const Header = ({ title }) => {
   return (
     <View style={styles.header}>
-      <Text style={styles.headerText}>
+      <Text
+        style={styles.headerText}
+        adjustsFontSizeToFit={true}
+        numberOfLines={1}
+      >
         {title}
       </Text>
     </View>
@@ -22,6 +26,8 @@ const styles = StyleSheet.create({
   header: {
     marginTop: Sizes.extraLarge,
     marginBottom: Sizes.extraLarge,
+    marginLeft: Sizes.verySmall,
+    marginRight: Sizes.verySmall,
   },
   headerText: {
     textAlign: 'center',

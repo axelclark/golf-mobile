@@ -132,7 +132,7 @@ class LogInScreen extends React.Component {
 
     return (
       <SafeAreaView style={styles.container}>
-        <Header title={'Fore Score'}/>
+        <Header title={'ForeScore'}/>
         <View style={styles.formContainer}>
 
           <FormValidationMessage>{errorMessage}</FormValidationMessage>

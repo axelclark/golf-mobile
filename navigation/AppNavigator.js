@@ -1,9 +1,8 @@
-import React from 'react';
-import { createSwitchNavigator } from 'react-navigation';
+import { createSwitchNavigator } from "react-navigation"
 
-import MainTabNavigator from './MainTabNavigator';
-import AuthLoadingScreen from '../screens/AuthLoadingScreen';
-import LogInScreen from '../screens/LogInScreen';
+import MainTabNavigator from "./MainTabNavigator"
+import AuthLoadingScreen from "../screens/AuthLoadingScreen"
+import LogInScreen from "../screens/LogInScreen"
 
 export default createSwitchNavigator({
   // You could add another route here for authentication.
@@ -11,4 +10,4 @@ export default createSwitchNavigator({
   AuthLoading: AuthLoadingScreen,
   Main: MainTabNavigator,
   Auth: LogInScreen,
-});
+})

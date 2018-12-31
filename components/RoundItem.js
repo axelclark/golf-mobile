@@ -15,9 +15,9 @@ import formatScore from '../utils/formatScore'
 import Sizes from '../constants/Sizes'
 import Colors from '../constants/Colors'
 
-const RoundItem = ({ round, navigation }) => {
+const RoundItem = ({ round, navigation, ROUNDS_QUERY }) => {
   const rightButtons = [
-    <DeleteRoundButton round={round} />
+    <DeleteRoundButton round={round} ROUNDS_QUERY={ROUNDS_QUERY}/>
   ];
 
   return (

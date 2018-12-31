@@ -54,6 +54,7 @@ class RoundsScreen extends React.Component {
       <RoundItem
         key={round.id}
         round={round}
+        ROUNDS_QUERY={ROUNDS_QUERY}
       />
     )
   }

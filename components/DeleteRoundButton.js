@@ -4,7 +4,6 @@ import { View, TouchableOpacity, Text, StyleSheet } from 'react-native'
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 
-import { ROUNDS_QUERY } from '../screens/RoundsScreen'
 import Colors from '../constants/Colors';
 import Sizes from '../constants/Sizes';
 
@@ -22,7 +21,7 @@ export default class DeleteRoundButton extends React.Component {
   }
 
   render() {
-    const { round } = this.props
+    const { round, ROUNDS_QUERY } = this.props
     const roundParams = {
       id: round.id
     }

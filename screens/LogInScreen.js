@@ -143,6 +143,7 @@ class LogInScreen extends React.Component {
             inputValue={inputEmail}
             textContentType={'emailAddress'}
             keyboardType={'email-address'}
+            autoCapitalize={'none'}
           />
           <FormValidationMessage>{emailError}</FormValidationMessage>
 

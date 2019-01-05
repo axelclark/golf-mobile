@@ -1,5 +1,9 @@
 # Changelog
 
+## Next release
+
+* Add button to reset password
+
 ## 0.3.0
 
 * Add error messages to login form

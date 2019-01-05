@@ -45,6 +45,14 @@ const CREATE_USER_MUTATION = gql`
   }
 `
 
+const RESET_PASSWORD_MUTATION = gql`
+  mutation($email: String!) {
+    resetPassword(email: $email) {
+      email
+    }
+  }
+`
+
 class LogInScreen extends React.Component {
   static navigationOptions = {
     header: null,
@@ -113,6 +121,10 @@ class LogInScreen extends React.Component {
     }
   }
 
+  handleReset() {
+    this.setState({ errorMessage: "Check email for link to reset password" })
+  }
+
   render() {
     const {
       inputEmail,
@@ -126,6 +138,10 @@ class LogInScreen extends React.Component {
     const logInParams = {
       email: inputEmail,
       password: inputPassword,
+    }
+
+    const resetParams = {
+      email: inputEmail,
     }
 
     const registrationParams = {
@@ -177,6 +193,24 @@ class LogInScreen extends React.Component {
               />
             )}
           </Mutation>
+
+          {login && (
+            <Mutation
+              mutation={RESET_PASSWORD_MUTATION}
+              variables={resetParams}
+              onCompleted={() => this.handleReset()}
+              onError={error => this.handleError(error)}
+            >
+              {resetPasswordMutation => (
+                <Button
+                  title={"Reset Password"}
+                  onPress={() => resetPasswordMutation()}
+                  style={styles.button}
+                  titleStyle={styles.resetButtonText}
+                />
+              )}
+            </Mutation>
+          )}
 
           <View style={styles.switchContainer}>
             <View style={styles.textContainer}>

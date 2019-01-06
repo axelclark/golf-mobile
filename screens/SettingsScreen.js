@@ -1,13 +1,26 @@
 import React from "react"
-import { ExpoConfigView } from "@expo/samples"
 import { Button } from "react-native-elements"
-import { AsyncStorage, View } from "react-native"
+import { AsyncStorage, SafeAreaView, StyleSheet, Linking } from "react-native"
 
 import { withApollo } from "react-apollo"
 
+import Header from "../components/Header"
+import Sizes from "../constants/Sizes"
+import Colors from "../constants/Colors"
+
 class SettingsScreen extends React.Component {
   static navigationOptions = {
-    title: "app.json",
+    header: null,
+  }
+
+  async emailSupport() {
+    const url = "mailto:forescoreapp@gmail.com"
+    try {
+      await Linking.openURL(url)
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.log(error)
+    }
   }
 
   async logOutUser() {
@@ -22,15 +35,32 @@ class SettingsScreen extends React.Component {
   }
 
   render() {
-    /* Go ahead and delete ExpoConfigView and replace it with your
-     * content, we just wanted to give you a quick view of your config */
     return (
-      <View>
-        <ExpoConfigView />
-        <Button title="Log Out" onPress={() => this.logOutUser()} />
-      </View>
+      <SafeAreaView styles={styles.container}>
+        <Header title={"Settings"} />
+        <Button
+          title="Log Out"
+          buttonStyle={styles.button}
+          onPress={() => this.logOutUser()}
+        />
+        <Button
+          title="Email Support"
+          buttonStyle={styles.button}
+          onPress={() => this.emailSupport()}
+        />
+      </SafeAreaView>
     )
   }
 }
+
+const styles = StyleSheet.create({
+  button: {
+    marginTop: Sizes.large,
+    backgroundColor: Colors.darkPrimary,
+  },
+  container: {
+    flex: 1,
+  },
+})
 
 export default withApollo(SettingsScreen)

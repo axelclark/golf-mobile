@@ -3,6 +3,7 @@ import React from "react"
 import {
   AsyncStorage,
   SafeAreaView,
+  ScrollView,
   StyleSheet,
   Switch,
   Text,
@@ -22,6 +23,7 @@ import gql from "graphql-tag"
 import Header from "../components/Header"
 import Colors from "../constants/Colors"
 import Sizes from "../constants/Sizes"
+import Layout from "../constants/Layout"
 
 const LOGIN_MUTATION = gql`
   mutation($email: String!, $password: String!) {
@@ -154,80 +156,82 @@ class LogInScreen extends React.Component {
     return (
       <SafeAreaView style={styles.container}>
         <Header title={"ForeScore"} />
-        <View style={styles.formContainer}>
-          <FormValidationMessage>{errorMessage}</FormValidationMessage>
+        <ScrollView>
+          <View style={styles.formContainer}>
+            <FormValidationMessage>{errorMessage}</FormValidationMessage>
 
-          <FormLabel>Email</FormLabel>
-          <FormInput
-            onChangeText={text => this.updateEmail(text)}
-            inputValue={inputEmail}
-            textContentType={"emailAddress"}
-            keyboardType={"email-address"}
-            autoCapitalize={"none"}
-          />
-          <FormValidationMessage>{emailError}</FormValidationMessage>
+            <FormLabel>Email</FormLabel>
+            <FormInput
+              onChangeText={text => this.updateEmail(text)}
+              inputValue={inputEmail}
+              textContentType={"emailAddress"}
+              keyboardType={"email-address"}
+              autoCapitalize={"none"}
+            />
+            <FormValidationMessage>{emailError}</FormValidationMessage>
 
-          <FormLabel>Password</FormLabel>
-          <FormInput
-            onChangeText={text => this.updatePassword(text)}
-            inputValue={inputPassword}
-            textContentType={"password"}
-            secureTextEntry={true}
-          />
-          <FormValidationMessage>{passwordError}</FormValidationMessage>
+            <FormLabel>Password</FormLabel>
+            <FormInput
+              onChangeText={text => this.updatePassword(text)}
+              inputValue={inputPassword}
+              textContentType={"password"}
+              secureTextEntry={true}
+            />
+            <FormValidationMessage>{passwordError}</FormValidationMessage>
 
-          <Mutation
-            mutation={login ? LOGIN_MUTATION : CREATE_USER_MUTATION}
-            variables={login ? logInParams : registrationParams}
-            onCompleted={data => this.saveToken(data)}
-            onError={error => this.handleError(error)}
-          >
-            {logInMutation => (
-              <Button
-                title={login ? "Log In" : "Sign up"}
-                onPress={() => logInMutation()}
-                backgroundColor={
-                  login ? Colors.darkPrimary : Colors.lightPrimary
-                }
-                style={styles.button}
-              />
-            )}
-          </Mutation>
-
-          {login && (
             <Mutation
-              mutation={RESET_PASSWORD_MUTATION}
-              variables={resetParams}
-              onCompleted={() => this.handleReset()}
+              mutation={login ? LOGIN_MUTATION : CREATE_USER_MUTATION}
+              variables={login ? logInParams : registrationParams}
+              onCompleted={data => this.saveToken(data)}
               onError={error => this.handleError(error)}
             >
-              {resetPasswordMutation => (
+              {logInMutation => (
                 <Button
-                  title={"Reset Password"}
-                  onPress={() => resetPasswordMutation()}
+                  title={login ? "Log In" : "Sign up"}
+                  onPress={() => logInMutation()}
+                  backgroundColor={
+                    login ? Colors.darkPrimary : Colors.lightPrimary
+                  }
                   style={styles.button}
-                  titleStyle={styles.resetButtonText}
                 />
               )}
             </Mutation>
-          )}
 
-          <View style={styles.switchContainer}>
-            <View style={styles.textContainer}>
-              <Text style={styles.text}>Sign Up</Text>
-            </View>
-            <Switch
-              onValueChange={value => this.toggleLogIn(value)}
-              value={login}
-              ios_backgroundColor={Colors.lightPrimary}
-              trackColor={{ true: Colors.darkPrimary }}
-              style={styles.switch}
-            />
-            <View style={styles.textContainer}>
-              <Text style={styles.text}>Log In</Text>
+            {login && (
+              <Mutation
+                mutation={RESET_PASSWORD_MUTATION}
+                variables={resetParams}
+                onCompleted={() => this.handleReset()}
+                onError={error => this.handleError(error)}
+              >
+                {resetPasswordMutation => (
+                  <Button
+                    title={"Reset Password"}
+                    onPress={() => resetPasswordMutation()}
+                    style={styles.button}
+                    titleStyle={styles.resetButtonText}
+                  />
+                )}
+              </Mutation>
+            )}
+
+            <View style={styles.switchContainer}>
+              <View style={styles.textContainer}>
+                <Text style={styles.text}>Sign Up</Text>
+              </View>
+              <Switch
+                onValueChange={value => this.toggleLogIn(value)}
+                value={login}
+                ios_backgroundColor={Colors.lightPrimary}
+                trackColor={{ true: Colors.darkPrimary }}
+                style={styles.switch}
+              />
+              <View style={styles.textContainer}>
+                <Text style={styles.text}>Log In</Text>
+              </View>
             </View>
           </View>
-        </View>
+        </ScrollView>
       </SafeAreaView>
     )
   }
@@ -245,7 +249,7 @@ const styles = StyleSheet.create({
   },
   formContainer: {
     flex: 1,
-    maxWidth: Sizes.extraLargeLayout,
+    maxWidth: Layout.window.width,
   },
   switch: {
     backgroundColor: Colors.darkPrimary,

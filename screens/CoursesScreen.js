@@ -9,14 +9,16 @@ import {
 
 import { graphql, Query } from "react-apollo"
 import gql from "graphql-tag"
+import { Button } from "react-native-elements"
 
 import Course from "../components/Course"
 import Header from "../components/Header"
 import Colors from "../constants/Colors"
+import Sizes from "../constants/Sizes"
 
 import { ROUNDS_QUERY } from "./RoundsScreen"
 
-const COURSES_QUERY = gql`
+export const COURSES_QUERY = gql`
   {
     courses {
       id
@@ -72,6 +74,11 @@ class CoursesScreen extends React.Component {
             )
           }}
         </Query>
+        <Button
+          title="Create New Course"
+          buttonStyle={styles.button}
+          onPress={() => this.props.navigation.navigate("NewCourse")}
+        />
       </SafeAreaView>
     )
   }
@@ -81,6 +88,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.backgroundColor,
+  },
+  button: {
+    marginTop: Sizes.small,
+    marginBottom: Sizes.small,
+    backgroundColor: Colors.darkPrimary,
   },
 })
 

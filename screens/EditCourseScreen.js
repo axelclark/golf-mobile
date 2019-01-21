@@ -1,36 +1,36 @@
 import React from "react"
-import { SafeAreaView, ScrollView, StyleSheet } from "react-native"
+import { SafeAreaView, StyleSheet } from "react-native"
 import { Mutation } from "react-apollo"
 import gql from "graphql-tag"
 
-import { COURSES_QUERY } from "../screens/CoursesScreen"
 import Header from "../components/Header"
 import CourseForm from "../components/CourseForm"
 
-const CREATE_COURSE_MUTATION = gql`
-  mutation($course: CourseInput!) {
-    course: createCourse(input: $course) {
+const UPDATE_COURSE_MUTATION = gql`
+  mutation($id: ID!, $course: CourseInput!) {
+    course: updateCourse(id: $id, input: $course) {
       id
-      name
       numHoles
+      name
       holes {
         id
-        par
         holeNumber
+        par
       }
     }
   }
 `
 
-class NewCourseScreen extends React.Component {
+class EditCourseScreen extends React.Component {
   static navigationOptions = {
-    title: "New Course",
+    title: "Edit Course",
   }
 
   constructor() {
     super()
     this.state = {
       data: {
+        id: "",
         name: "",
         numHoles: "",
         holes: [],
@@ -41,14 +41,26 @@ class NewCourseScreen extends React.Component {
     }
   }
 
+  componentWillMount() {
+    const { navigation } = this.props
+    let course = navigation.getParam("course", {})
+    let holes = course.holes
+    holes.forEach(hole => {
+      delete hole.__typename
+    })
+    holes.sort((a, b) => a.holeNumber - b.holeNumber)
+    course["holes"] = holes
+    this.setState({ data: course })
+  }
+
   handleFieldChange = field => value => {
     let data = { ...this.state.data }
     data[field] = value
     this.setState({ data })
   }
 
-  onCompleted({ course }) {
-    this.props.navigation.navigate("EditCourse", { course })
+  onCompleted() {
+    this.props.navigation.navigate("Courses")
   }
 
   handleError({ graphQLErrors, networkError }) {
@@ -71,40 +83,32 @@ class NewCourseScreen extends React.Component {
   }
 
   render() {
-    const { name, numHoles } = this.state.data
-    const courseParams = {
+    const { id, name, numHoles, holes } = this.state.data
+    const updateParams = {
+      id: id,
       course: {
         name: name,
         numHoles: Number(numHoles),
+        holes: holes,
       },
     }
     return (
       <SafeAreaView styles={styles.container}>
-        <ScrollView scrollEnabled={false}>
-          <Header title={"New Course"} />
-          <Mutation
-            mutation={CREATE_COURSE_MUTATION}
-            variables={courseParams}
-            onCompleted={data => this.onCompleted(data)}
-            update={(store, { data: { course } }) => {
-              const data = store.readQuery({ query: COURSES_QUERY })
-              data.courses.push(course)
-              store.writeQuery({
-                query: COURSES_QUERY,
-                data,
-              })
-            }}
-            onError={error => this.handleError(error)}
-          >
-            {createCourseMutation => (
-              <CourseForm
-                {...this.state}
-                handleSubmit={createCourseMutation}
-                handleFieldChange={this.handleFieldChange}
-              />
-            )}
-          </Mutation>
-        </ScrollView>
+        <Header title={"Edit Course"} />
+        <Mutation
+          mutation={UPDATE_COURSE_MUTATION}
+          variables={updateParams}
+          onCompleted={() => this.onCompleted()}
+          onError={error => this.handleError(error)}
+        >
+          {updateCourseMutation => (
+            <CourseForm
+              {...this.state}
+              handleSubmit={updateCourseMutation}
+              handleFieldChange={this.handleFieldChange}
+            />
+          )}
+        </Mutation>
       </SafeAreaView>
     )
   }
@@ -116,4 +120,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default NewCourseScreen
+export default EditCourseScreen

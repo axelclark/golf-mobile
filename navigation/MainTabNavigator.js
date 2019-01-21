@@ -9,6 +9,7 @@ import {
 import TabBarIcon from "../components/TabBarIcon"
 import CoursesScreen from "../screens/CoursesScreen"
 import NewCourseScreen from "../screens/NewCourseScreen"
+import EditCourseScreen from "../screens/EditCourseScreen"
 import RoundsScreen from "../screens/RoundsScreen"
 import ShowRoundScreen from "../screens/ShowRoundScreen"
 import SettingsScreen from "../screens/SettingsScreen"
@@ -16,6 +17,7 @@ import SettingsScreen from "../screens/SettingsScreen"
 const CoursesStack = createStackNavigator({
   Courses: CoursesScreen,
   NewCourse: NewCourseScreen,
+  EditCourse: EditCourseScreen,
 })
 
 CoursesStack.navigationOptions = {

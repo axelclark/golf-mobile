@@ -24,6 +24,11 @@ export const COURSES_QUERY = gql`
       id
       name
       numHoles
+      holes {
+        id
+        holeNumber
+        par
+      }
     }
   }
 `

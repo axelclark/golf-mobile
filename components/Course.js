@@ -2,6 +2,7 @@ import React from "react"
 import { View, Text, StyleSheet } from "react-native"
 
 import NewRoundButton from "./NewRoundButton"
+import EditCourseButton from "./EditCourseButton"
 import Sizes from "../constants/Sizes"
 import Colors from "../constants/Colors"
 
@@ -13,6 +14,7 @@ const Course = ({ course }) => {
           {course.name} ({course.numHoles})
         </Text>
       </View>
+      <EditCourseButton course={course} />
       <NewRoundButton course={course} />
     </View>
   )
@@ -38,7 +40,7 @@ const styles = StyleSheet.create({
     color: Colors.defaultText,
   },
   textContainer: {
-    flex: 1,
+    flex: 6,
     marginLeft: Sizes.verySmall,
   },
 })

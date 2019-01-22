@@ -1,13 +1,15 @@
 import React from "react"
 import { View, StyleSheet } from "react-native"
-import { Button } from "react-native"
+import { TouchableHighlight } from "react-native"
 import { withNavigation } from "react-navigation"
+import { Icon } from "expo"
 
 import { Mutation } from "react-apollo"
 import gql from "graphql-tag"
 
 import { ROUNDS_QUERY } from "../screens/RoundsScreen"
 import Sizes from "../constants/Sizes"
+import Colors from "../constants/Colors"
 
 const CREATE_ROUND_MUTATION = gql`
   mutation($round: RoundInput!) {
@@ -42,7 +44,7 @@ const NewRoundButton = ({ course, navigation }) => {
   }
 
   return (
-    <View style={styles.buttonContainer}>
+    <View>
       <Mutation
         mutation={CREATE_ROUND_MUTATION}
         variables={newRound}
@@ -57,7 +59,15 @@ const NewRoundButton = ({ course, navigation }) => {
         }}
       >
         {createRoundMutation => (
-          <Button onPress={() => createRoundMutation()} title="New Round" />
+          <View style={styles.container}>
+            <TouchableHighlight onPress={() => createRoundMutation()}>
+              <Icon.Ionicons
+                name={"md-play"}
+                size={Sizes.mediumLarge}
+                color={Colors.darkPrimary}
+              />
+            </TouchableHighlight>
+          </View>
         )}
       </Mutation>
     </View>
@@ -65,11 +75,11 @@ const NewRoundButton = ({ course, navigation }) => {
 }
 
 const styles = StyleSheet.create({
-  buttonContainer: {
-    maxWidth: 100,
-    maxHeight: 50,
-    margin: Sizes.verySmall,
+  container: {
+    margin: Sizes.small,
     flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 })
 

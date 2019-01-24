@@ -89,6 +89,7 @@ class NewCourseScreen extends React.Component {
             update={(store, { data: { course } }) => {
               const data = store.readQuery({ query: COURSES_QUERY })
               data.courses.push(course)
+              data.courses.sort((a, b) => a.name.localeCompare(b.name))
               store.writeQuery({
                 query: COURSES_QUERY,
                 data,

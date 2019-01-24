@@ -42,13 +42,16 @@ const NewRoundButton = ({ course, navigation }) => {
       courseId: Number(course.id),
     },
   }
+  const handleCompleted = data => {
+    navigation.navigate("ShowRound", { id: data.round.id })
+  }
 
   return (
     <View>
       <Mutation
         mutation={CREATE_ROUND_MUTATION}
         variables={newRound}
-        onCompleted={() => navigation.navigate("Rounds")}
+        onCompleted={data => handleCompleted(data)}
         update={(store, { data: { round } }) => {
           const data = store.readQuery({ query: ROUNDS_QUERY })
           data.rounds.push(round)

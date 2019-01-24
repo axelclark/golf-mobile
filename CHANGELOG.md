@@ -2,7 +2,14 @@
 
 ## Next release
 
+## 0.4.0
+
 * Add button to reset password
+* Add email support & update settings page
+* Update style for login screen
+* Add form to create new course
+* Add form to update a course
+* Update course list buttons
 
 ## 0.3.0
 
